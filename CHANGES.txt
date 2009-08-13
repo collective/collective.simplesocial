@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.0a1 (unrelease)
------------------
+1.0b1 (2009-08-13)
+------------------
 
 - Initial release.
   [davisagli]
