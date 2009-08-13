@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/prefs_main_template/macros/master"
+      i18n:domain="collective.simplesocial">
+
+<metal:block metal:fill-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border', 1)" />
+
+<body>
+
+<div metal:fill-slot="prefs_configlet_main">
+
+    <h1 class="documentFirstHeading"
+        i18n:translate="">Facebook Connect Configuration</h1>
+
+    <a href=""
+        class="link-parent"
+        tal:attributes="href string:$portal_url/plone_control_panel"
+        i18n:domain="plone"
+        i18n:translate="label_up_to_plone_setup">
+            Up to Site Setup
+    </a>
+
+    <p>To use Facebook Connect features, you must configure a Facebook application
+    API key here.  To get an API key:</p>
+    
+    <ul>
+        <li>Go to the Facebook Developer application at
+            <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a>.
+            If necessary, allow it access to your profile.
+        <li>Click the <strong>Set Up New Application</strong> button and fill out the form.
+        <li>Take note of the <strong>API Key</strong> that is displayed, and enter it here.
+        <li>In the Facebook application's settings, click on the <strong>Connect</strong> tab.
+            Enter the URL of this site into the <strong>Connect URL</strong> field.  <em>Note:
+            This site must be publicly accessible in order for communication between Facebook
+            and the site to work.</em>
+    </ul>
+
+<p>If the connection has been successfully configured, you will see a verification message here.</p>
+<tal:block tal:replace="structure string:
+    &lt;fb:serverfbml style=&quot;height:75px;&quot;&gt;
+     &lt;script type=&quot;text/fbml&quot;&gt;
+      &lt;fb:success&gt;
+        &lt;fb:message&gt;Facebook connection verified!&lt;/fb:message&gt;
+        If you can read this, then you have successfully connected to the &lt;fb:fbml&gt;&lt;fb:application-name/&gt;&lt;/fb:fbml&gt; application.
+      &lt;/fb:success&gt;
+     &lt;/script&gt;
+    &lt;/fb:serverfbml&gt;
+"/>
+
+    <tal:block metal:use-macro="context/base-pageform.html/macros/form">
+        <tal:block metal:fill-slot="above_buttons">
+            <input tal:replace="structure context/@@authenticator/authenticator" />
+        </tal:block>
+    </tal:block>
+</div>
+
+</body>
+</html>

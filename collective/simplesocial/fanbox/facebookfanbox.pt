@@ -1,0 +1,8 @@
+<dl class="portlet portletFacebookFanBox"
+    i18n:domain="collective.portlet.portlets">
+
+    <iframe scrolling="no" frameborder="0" allowtransparency="true"
+        tal:attributes="src string:http://www.facebook.com/connect/connect.php?id=${view/data/profile_id}&connections=${view/data/connections}&stream=${view/data/stream};
+                        style string:border: none;; width: ${view/data/width}px;; height: ${view/data/height}px;;"></iframe>
+
+</dl>

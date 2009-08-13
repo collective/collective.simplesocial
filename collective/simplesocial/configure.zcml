@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.simplesocial">
+
+  <include package=".browser" />
+  <include package=".fanbox" />
+  <include package=".feedform" />
+  
+  <!-- Register the installation GenericSetup extension profile -->
+  <genericsetup:registerProfile
+      name="fbconnect"
+      title="Basic Facebook Connect support"
+      directory="profiles/fbconnect"
+      description="Installs the basic pieces required for integrating with Facebook Connect.  You must configure an API key via the control panel after installation."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

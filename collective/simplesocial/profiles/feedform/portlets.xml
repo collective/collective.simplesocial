@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<portlets>
+   <portlet
+     addview="collective.simplesocial.feedform.FacebookFeedForm"
+     title="Facebook Feed Form"
+     description="Displays a feed form prompting a visitor to post something to their Facebook feed."
+     />
+</portlets>

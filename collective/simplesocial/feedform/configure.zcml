@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.simplesocial">
+
+  <!-- make this show up in the quickinstaller separately -->
+  <five:registerPackage package="."/>
+  
+  <genericsetup:registerProfile
+      name="feedform"
+      title="Facebook Feed Form portlet"
+      directory="../profiles/feedform"
+      description="Enables the Facebook feed form portlet."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <include package="plone.app.portlets"/>
+  <plone:portlet
+      name="collective.simplesocial.feedform.FacebookFeedForm"
+      interface=".facebookfeedform.IFacebookFeedForm"
+      assignment=".facebookfeedform.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".facebookfeedform.Renderer"
+      addview=".facebookfeedform.AddForm"
+      editview=".facebookfeedform.EditForm"
+      />
+
+</configure>

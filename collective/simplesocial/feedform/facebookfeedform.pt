@@ -1,0 +1,45 @@
+<dl id="fb-login-button" class="portalMessage info" style="display: none;">
+    <dd>
+<tal:block tal:replace="string:${view/user_message_prompt}"/>
+Click the button to log into Facebook and post a message to your feed.
+<fb:login-button size="medium" background="light" length="short" onlogin="simplesocial_streamPublish()">
+</fb:login-button>
+    </dd>
+</dl>
+<script type="text/javascript"
+    tal:content="structure string:
+//<![CDATA[
+function simplesocial_streamPublish() {
+  FB.Connect.streamPublish('${view/user_message}', ${view/attachment}, ${view/action_links}, null, '${view/user_message_prompt}', ${view/callback});
+}
+FB.ensureInit(function() {
+  var fb_status = FB.Connect.get_status().result;
+  if (fb_status == FB.ConnectState.connected ||
+      fb_status == FB.ConnectState.appNotAuthorized) {
+      simplesocial_streamPublish();
+  } else {
+    jq(function() {
+      jq('#fb-login-button').insertBefore('#kssPortalMessage').show()
+    });
+  }
+});
+//]]>
+"></script>
+
+<dl class="portlet portletFacebookFeedForm"
+    i18n:domain="collective.portlet.portlets"
+    tal:condition="python:context.portal_membership.checkPermission('Manage portlets', context)">
+    
+    <dt class="portletHeader">Facebook Feed Form</dt>
+    <dd class="portletItem">
+        <p>This portlet causes a Facebook feed form to be displayed on this page.
+        <a tal:define="canonical_object context/@@plone_context_state/canonical_object;
+                       contextual_portlets_helper nocall:canonical_object/@@manage-portlets-macros;
+                       manager_url python:contextual_portlets_helper.getAssignmentMappingUrl(view.manager)"
+           tal:attributes="href string:${manager_url}/${view/data/id}/edit?referer=${request/URL}">Edit settings</a></p>
+        
+        <p>(Note: This message is visible only to users with the permission to manage portlets.)
+    </dd>
+    <dt class="portletFooter"></dt>
+
+</dl>

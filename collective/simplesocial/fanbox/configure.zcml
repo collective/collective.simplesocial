@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.simplesocial">
+
+  <!-- make this show up in the quickinstaller separately -->
+  <five:registerPackage package="."/>
+  
+  <genericsetup:registerProfile
+      name="fanbox"
+      title="Facebook Fan Box portlet"
+      directory="../profiles/fanbox"
+      description="Enables the Facebook Fan Box portlet."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <include package="plone.app.portlets" />
+  <plone:portlet
+      name="collective.simplesocial.fanbox.FacebookFanBox"
+      interface=".facebookfanbox.IFacebookFanBox"
+      assignment=".facebookfanbox.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".facebookfanbox.Renderer"
+      addview=".facebookfanbox.AddForm"
+      editview=".facebookfanbox.EditForm"
+      />
+
+</configure>
