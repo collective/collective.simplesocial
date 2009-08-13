@@ -31,8 +31,8 @@ collective.simplesocial requires Plone 3.
 It has been tested with Firefox 3.5, Safari 4, and IE 6, 7, and 8.
 
 
-Fan Box
-=======
+Fan Box Portlet
+===============
 
 Facebook provides a basic "`Fan Box`_" widget which can be used to promote
 a Facebook Page by prompting visitors to your website to become a fan and
@@ -67,8 +67,8 @@ Adding a Fan Box
    view the fan box.
 
 
-Feed Form
-=========
+Feed Form Portlet
+=================
 
 Facebook allows Facebook Connect sites to publish messages to users' activity
 streams via the `Open Stream API`_ -- in particular, via the
