@@ -4,6 +4,10 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+- Added a jq() wrapper to the feature loader initialization call so that it
+  doesn't happen until the DOM is fully loaded.
+  [matty]
+
 - Removed bogus dependency of the Fan Box profile on the Basic Facebook Connect
   integration profile.
   [davisagli]
