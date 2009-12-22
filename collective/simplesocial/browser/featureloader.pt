@@ -4,8 +4,10 @@
 <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
 <script type="text/javascript" tal:content="structure string:
 //<![CDATA[
+jq(function () {
 FB_RequireFeatures(['XFBML'], function(){
   FB.Facebook.init('${fb_api_key}', '${context/portal_url}/++resource++xd_receiver.htm');
+});
 });
 //]]>
 "></script>
