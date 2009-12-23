@@ -51,7 +51,8 @@
     &lt;/fb:serverfbml&gt;
 "/>
 
-    <tal:block metal:use-macro="context/base-pageform.html/macros/form">
+    <tal:block metal:use-macro="context/base-pageform.html/index/macros/form">
+        <tal:block metal:fill-slot="authenticator"/>
         <tal:block metal:fill-slot="above_buttons">
             <input tal:replace="structure context/@@authenticator/authenticator" />
         </tal:block>
