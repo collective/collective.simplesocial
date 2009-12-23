@@ -26,7 +26,7 @@ To see a demonstration of the feed form portlet in use, watch the `screencast`_.
 Compatibility
 =============
 
-collective.simplesocial requires Plone 3.
+collective.simplesocial has been tested with Plone 3.x and Plone 4.0.
 
 It has been tested with Firefox 3.5, Safari 4, and IE 6, 7, and 8.
 
@@ -192,7 +192,7 @@ Additional Facebook Connect API Resources
 Credits
 =======
 
-collective.simplesocial was developed by David Glick as part of `ONE/Northwest`_'s
-Online Civic Engagement Platform.
+collective.simplesocial was developed by David Glick for `Groundwire`_
+(formerly ONE/Northwest).
 
-.. _`ONE/Northwest`: http://onenw.org
+.. _`Groundwire`: http://groundwire.org

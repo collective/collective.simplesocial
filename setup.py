@@ -11,7 +11,7 @@ def read(*rnames):
 version = '1.0'
 
 long_description = (
-    read('collective', 'simplesocial', 'README.txt')
+    read('README.txt')
     + '\n' +
     read('CHANGES.txt')
     + '\n'
@@ -45,4 +45,8 @@ setup(name='collective.simplesocial',
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
       test_suite = 'collective.simplesocial.tests.test_docs.test_suite',
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """
       )

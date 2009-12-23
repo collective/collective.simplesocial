@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.0 (unreleased)
+1.0 (2009-12-22)
 ----------------
+
+- Add z3c.autoinclude Plone plugin entry point.
+  [davisagli]
+
+- Fix control panel authenticator to work in Plone 4.
+  [davisagli]
 
 - Added a jq() wrapper to the feature loader initialization call so that it
   doesn't happen until the DOM is fully loaded.
