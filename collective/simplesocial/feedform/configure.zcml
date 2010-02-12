@@ -8,6 +8,9 @@
   <!-- make this show up in the quickinstaller separately -->
   <five:registerPackage package="."/>
   
+  <adapter for="*"
+      factory=".facebookfeedform.DefaultFeedFormDataProvider" />
+  
   <genericsetup:registerProfile
       name="feedform"
       title="Facebook Feed Form portlet"

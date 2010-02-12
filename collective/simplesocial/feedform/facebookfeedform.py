@@ -1,4 +1,5 @@
-from zope.interface import implements
+from zope.interface import Interface, implements
+from zope.app.component.hooks import getSite
 
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
@@ -10,7 +11,77 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.simplesocial import simplesocialMessageFactory as _
-from collective.simplesocial.utils import json_escape
+from collective.simplesocial.utils import json_escape, json_serialize
+
+class IFeedFormDataProvider(Interface):
+    """
+    Provides the data used to populate the Facebook feed form.
+    """
+    
+    def getSettings(self, defaults):
+        """
+        Given an instance of Assignment containing the default settings,
+        return an object providing IFacebookFeedForm.
+        
+        In implementing getSettings, be sure to copy the defaults object to avoid
+        changing the portlet settings!
+        """
+        
+    def getAttachment(self):
+        """
+        Return a dictionary containing the following keys that describe the
+        feed form attachment:
+            - name
+            - href
+            - description
+            - media (a list containing dictionaries with these keys)
+                - type
+                - src
+                - href
+        """
+
+class DefaultFeedFormDataProvider(object):
+    """
+    An adapter that provides the default feed form settings as specified in 
+    the portlet if a content type-specific adapter is not found.
+    """
+    
+    implements(IFeedFormDataProvider)
+    
+    def __init__(self, context):
+        self.context = context
+        
+    def getSettings(self, defaults):
+        return defaults
+
+    def getAttachment(self):
+        result = {
+            'name': self.context.Title(),
+            'href': self.context.absolute_url(),
+        }
+        if hasattr(self.context, 'Description') and self.context.Description():
+            result.update({'description': self.context.Description()})
+        try:
+            image_mini = self.context.restrictedTraverse('image_mini')
+            result.update({
+                'media': [{
+                    'type': 'image',
+                    'src': self.context.absolute_url() + '/image_mini',
+                    'href': self.context.absolute_url(),
+                }]
+            })
+        except AttributeError:
+            portal = getSite()
+            logo = portal.restrictedTraverse('base_properties').logoName
+            if logo:
+                result.update({
+                    'media': [{
+                        'type': 'image',
+                        'src': portal.absolute_url() + '/' + logo,
+                        'href': self.context.absolute_url(),
+                    }]
+                })
+        return result
 
 class IFacebookFeedForm(IPortletDataProvider):
     """A portlet
@@ -28,7 +99,7 @@ class IFacebookFeedForm(IPortletDataProvider):
         )
     
     user_message_prompt = schema.TextLine(
-        title = _(u'User prompt'),
+        title = _(u'User Prompt'),
         description = _(u'This message will be displayed to the user, prompting them to '
                         u'publish a message to their feed.'),
         default = _(u'Please consider sharing with your friends.'),
@@ -36,23 +107,9 @@ class IFacebookFeedForm(IPortletDataProvider):
         )
     
     user_message = schema.TextLine(
-        title = _(u'User message'),
+        title = _(u'User Message'),
         description = _(u'This will be used as the default text for the user-editable '
                         u'comment portion of the post.'),
-        required = False,
-        missing_value = u'',
-        )
-    
-    image_url = schema.TextLine(
-        title = _(u'Image URL'),
-        description = _(u'Paste the URL for an image to be included with the feed post. Optional.'),
-        required = False,
-        missing_value = u'',
-        )
-    
-    image_link_href = schema.TextLine(
-        title = _(u'Image Link URL'),
-        description = _(u'URL for the webpage which the image should link to when clicked. Optional.'),
         required = False,
         missing_value = u'',
         )
@@ -86,12 +143,10 @@ class Assignment(base.Assignment):
     action_link_href = u''
 
     def __init__(self, action_title, user_message_prompt, user_message, 
-                 image_url, image_link_href, action_link_text, action_link_href):
+                 action_link_text, action_link_href):
         self.action_title = action_title
         self.user_message_prompt = user_message_prompt
         self.user_message = user_message
-        self.image_url = image_url
-        self.image_link_href = image_link_href
         self.action_link_text = action_link_text
         self.action_link_href = action_link_href
 
@@ -114,16 +169,18 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('facebookfeedform.pt')
     callback = 'function(res){}'
 
+    def __init__(self, context, request, view, manager, data):
+        data_provider = IFeedFormDataProvider(context)
+        data = data_provider.getSettings(data)
+        self.attachment_data = data_provider.getAttachment()
+        super(Renderer, self).__init__(context, request, view, manager, data)
+
     @property
     def attachment(self):
-        out = '{'
-        out += '"caption": "{*actor*} ' + json_escape(self.data.action_title) + '"'
-        if self.data.image_url:
-            out += ', "media": [{"type": "image"'
-            out += ', "src": "' + json_escape(self.data.image_url) + '"'
-            out += ', "href": "' + json_escape(self.data.image_link_href) + '"}]'
-        out += '}'
-        return out
+        result_dict = self.attachment_data.copy()
+        if self.data.action_title:
+            result_dict.update({'caption': '{*actor*} ' + self.data.action_title})
+        return json_serialize(result_dict)
 
     @property
     def action_links(self):

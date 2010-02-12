@@ -1,6 +1,10 @@
 Changelog
 =========
 
+- Added an adapter interface so that we can override the feed form portlet
+  and attachment settings on a per-site or per-content-type basis.
+  [yomatters]
+
 1.0 (2009-12-22)
 ----------------
 
