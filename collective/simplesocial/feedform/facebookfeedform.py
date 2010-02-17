@@ -60,7 +60,7 @@ class DefaultFeedFormDataProvider(object):
             'href': self.context.absolute_url(),
         }
         if hasattr(self.context, 'Description') and self.context.Description():
-            result.update({'description': self.context.Description()})
+            result.update({'description': ' '.join(self.context.Description().split())})
         try:
             image_tile = self.context.restrictedTraverse('image_tile')
             result.update({

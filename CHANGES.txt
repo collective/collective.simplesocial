@@ -1,6 +1,10 @@
 Changelog
 =========
 
+- Stripped line breaks from the description in the default feed form adapter
+  to avoid breaking the javascript.
+  [yomatters]
+
 - Added a view to resize the site logo to the size that Facebook requires.
   [yomatters]
 
