@@ -62,22 +62,23 @@ class DefaultFeedFormDataProvider(object):
         if hasattr(self.context, 'Description') and self.context.Description():
             result.update({'description': self.context.Description()})
         try:
-            image_mini = self.context.restrictedTraverse('image_mini')
+            image_tile = self.context.restrictedTraverse('image_tile')
             result.update({
                 'media': [{
                     'type': 'image',
-                    'src': self.context.absolute_url() + '/image_mini',
+                    'src': self.context.absolute_url() + '/image_tile',
                     'href': self.context.absolute_url(),
                 }]
             })
         except AttributeError:
             portal = getSite()
-            logo = portal.restrictedTraverse('base_properties').logoName
-            if logo:
+            base_props = portal.restrictedTraverse('base_properties')
+            logo_name = getattr(base_props, 'logoName', None)
+            if logo_name:
                 result.update({
                     'media': [{
                         'type': 'image',
-                        'src': portal.absolute_url() + '/' + logo,
+                        'src': '/'.join([portal.absolute_url(), logo_name, '@@facebook-thumbnail']),
                         'href': self.context.absolute_url(),
                     }]
                 })

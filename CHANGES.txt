@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- Added a view to resize the site logo to the size that Facebook requires.
+  [yomatters]
+
 - Added an adapter interface so that we can override the feed form portlet
   and attachment settings on a per-site or per-content-type basis.
   [yomatters]

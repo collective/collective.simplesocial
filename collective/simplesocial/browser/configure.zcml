@@ -27,6 +27,23 @@
       layer=".interfaces.IBrowserLayer"
       />
 
+  <!-- Scaled thumbnail image -->
+  <browser:page
+      name="facebook-thumbnail"
+      for="Products.CMFCore.FSImage.FSImage"
+      class=".thumbnail.FacebookThumbnail"
+      permission="zope2.View"
+      layer=".interfaces.IBrowserLayer"
+      />
+      
+  <browser:page
+      name="facebook-thumbnail"
+      for="OFS.Image.Image"
+      class=".thumbnail.FacebookThumbnail"
+      permission="zope2.View"
+      layer=".interfaces.IBrowserLayer"
+      />
+
   <!-- adapter for storing settings in a property sheet -->
   <adapter
       factory=".configlet.FacebookSettingsAdapter"
