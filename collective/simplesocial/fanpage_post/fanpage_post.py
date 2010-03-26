@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from collective.simplesocial.feedform.facebookfeedform import IFeedFormDataProvider
 from collective.simplesocial.utils import json_serialize
@@ -11,5 +12,8 @@ class FanPagePostView(BrowserView):
     
     @property
     def actor_id(self):
-        # XXX look up from property sheet
-        return json_serialize('103413989697471')
+        ptool = getToolByName(self.context, 'portal_properties')
+        page_id = ptool.fb_properties.getProperty('page_id')
+        if page_id is not None:
+            return json_serialize(page_id)
+        return 'null'

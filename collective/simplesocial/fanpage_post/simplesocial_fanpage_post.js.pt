@@ -4,12 +4,13 @@
     if (!docac.length) {
         docac = $('<ul></ul>').appendTo('.documentActions');
     }
+    var actor_id = <tal:block tal:replace="view/actor_id"/>;
+    if (!actor_id) return;
     
     $('<li><a href="#">Post to Fan Page</a></li>')
         .click(function(e) {
             e.preventDefault();
             $.getJSON(window.location.href + '/@@simplesocial_attachment', null, function(attach) {
-              var actor_id = <tal:block tal:replace="view/actor_id"/>;
               FB.Connect.streamPublish('', attach, null, null, null, null, null, actor_id);
             });
         })

@@ -14,6 +14,13 @@ class IFacebookSettings(Interface):
         title = _(u'API Key'),
         description = _(u'Enter the API Key for your Facebook application.')
     )
+    
+    page_id = schema.ASCIILine(
+        title = _(u'Fan Page ID'),
+        description = _(u"Enter the ID of the fan page you want to post to.  You can "
+                        u"typically find the page's numeric ID in its URL."),
+        required = False,
+    )
 
 class FacebookSettingsAdapter(object):
     implements(IFacebookSettings)
@@ -33,8 +40,23 @@ class FacebookSettingsAdapter(object):
             self.context._setProperty('api_key', value)
     api_key = property(get_api_key, set_api_key)
 
+    def get_page_id(self):
+        return self.context.getProperty('page_id')
+    def set_page_id(self, value):
+        if self.context.hasProperty('page_id'):
+            self.context._updateProperty('page_id', value)
+        else:
+            self.context._setProperty('page_id', value)
+    page_id = property(get_page_id, set_page_id)
+
 class FacebookSettingsForm(ControlPanelForm):
     template = ViewPageTemplateFile('configlet.pt')
-    
-    form_fields = form.FormFields(IFacebookSettings)
     form_name = _(u'Facebook Connect Configuration')
+    
+    @property
+    def form_fields(self):
+        form_fields = form.FormFields(IFacebookSettings)
+        qi = getToolByName(self.context, 'portal_quickinstaller')
+        if not qi.isProductInstalled('collective.simplesocial.fanpage_post'):
+            form_fields = form_fields.omit('page_id')
+        return form_fields
