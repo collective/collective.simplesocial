@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1 (unreleased)
+----------------
+
+- Added the 'Post to Fan Page' feature.
+  [davisagli]
+
 - Stripped line breaks from the description in the default feed form adapter
   to avoid breaking the javascript.
   [yomatters]

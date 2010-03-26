@@ -15,6 +15,7 @@ Current features include:
  * Basic Facebook Connect integration
  * Fan Box portlet
  * Feed Form portlet
+ * Post to Facebook Fan Page
 
 (Each feature appears separately in the quick installer and Add/Remove Products
 configlet.)
@@ -125,6 +126,39 @@ If a visitor to a page with a feed form is not logged into Facebook, then the
 feed form will not appear automatically.  Instead, a message will be shown
 along with a Facebook Connect button.  Clicking this button will allow the
 visitor to log into Facebook, after which the feed form will be displayed.
+
+Post to Facebook Fan Page
+=========================
+
+This feature adds a "Post to Fan Page" link to the document actions area of a
+Plone page.  The link only shows up for Managers.
+
+Since it makes use of the full Facebook Connect API, using this feature requires
+first setting up a Facebook Application and setting its API Key in the
+Facebook Connect control panel in Plone's site setup.  The ID of the fan page
+you want to post to must also be entered there.
+
+The string "utm_source=facebook" will be added to the page URL, so that visitors
+who arrive at your site via the posted link can be tracked in Google Analytics.
+
+
+Configuring the 'Post to Fan Page' feature
+------------------------------------------
+
+1. Follow the instructions above for creating a Facebook Application.
+2. Go to Site Setup.
+3. Click `Add/Remove Products`.
+4. Check 'Post to Facebook Fan Page' and click Install.
+4. Return to Site Setup.
+5. Click `Facebook Connect`.
+6. Paste in the API Key that you recorded above when creating your Facebook
+   application.  Click Save.  If successful, you should see a yellow message
+   saying that the connection has been verified.
+7. Select the Facebook fan page you want to post to.
+
+Now the 'Post to Fan Page' link should show up when you are logged in. To post
+to Facebook, click on the link.  You will be prompted to confirm the message
+that will be posted.
 
 
 Custom Facebook Connect Integration

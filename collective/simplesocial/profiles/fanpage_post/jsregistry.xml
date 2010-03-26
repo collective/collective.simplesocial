@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry">
+ <javascript cacheable="True" compression="safe"
+    conditionalcomment="" cookable="True" enabled="on"
+    expression="python:context.portal_membership.checkPermission('simplesocial: Post to fan page', context)"
+    id="simplesocial_fanpage_post.js" inline="False"/>
+</object>

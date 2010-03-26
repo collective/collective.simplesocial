@@ -62,7 +62,7 @@ class DefaultFeedFormDataProvider(object):
         if hasattr(self.context, 'Description') and self.context.Description():
             result.update({'description': ' '.join(self.context.Description().split())})
         try:
-            image_tile = self.context.restrictedTraverse('image_tile')
+            self.context.restrictedTraverse('image_tile')
             result.update({
                 'media': [{
                     'type': 'image',
@@ -70,7 +70,7 @@ class DefaultFeedFormDataProvider(object):
                     'href': self.context.absolute_url(),
                 }]
             })
-        except AttributeError:
+        except (AttributeError, KeyError):
             portal = getSite()
             base_props = portal.restrictedTraverse('base_properties')
             logo_name = getattr(base_props, 'logoName', None)
