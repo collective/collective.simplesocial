@@ -6,7 +6,6 @@ from collective.simplesocial.utils import json_serialize
 class FanPagePostView(BrowserView):
     
     def attachment(self):
-        # XXX update the default provider to add a utm_source and shorten the URL
         data_provider = IFeedFormDataProvider(self.context)
         return json_serialize(data_provider.getAttachment())
     
