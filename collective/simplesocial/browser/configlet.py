@@ -16,9 +16,8 @@ class IFacebookSettings(Interface):
     )
     
     page_id = schema.ASCIILine(
-        title = _(u'Fan Page ID'),
-        description = _(u"Enter the ID of the fan page you want to post to.  You can "
-                        u"typically find the page's numeric ID in its URL."),
+        title = _(u'Fan Page'),
+        description = _(u"Select the fan page you want to post to."),
         required = False,
     )
 

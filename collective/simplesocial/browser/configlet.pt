@@ -7,7 +7,7 @@
       i18n:domain="collective.simplesocial">
 
 <metal:block metal:fill-slot="top_slot"
-             tal:define="dummy python:request.set('disable_border', 1)" />
+             tal:define="dummy python:request.set('disable_border', 1)"/>
 
 <body>
 
@@ -57,6 +57,27 @@
             <input tal:replace="structure context/@@authenticator/authenticator" />
         </tal:block>
     </tal:block>
+    
+    <script type="text/javascript">
+    (function($) {
+      FB.ensureInit(function() {
+        FB.Connect.requireSession(function() {
+          FB.Facebook.apiClient.fql_query("SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid=" + FB.Connect.get_loggedInUser() + ")", function(rows) {
+            var pages = '<select name="form.page_id">';
+            var cur_page = $('#form\\.page_id').val();
+            $(rows).each(function(i, row) {
+              pages += '<option value="' + row.page_id + '"';
+              if (row.page_id == cur_page)
+                pages += ' selected';
+              pages += '>' + row.name + '<' + '/option>';
+            });
+            $(pages + '<' + '/select>').replaceAll('#form\\.page_id');
+          });
+        });
+      });
+    })(jQuery);
+    </script>
+
 </div>
 
 </body>
