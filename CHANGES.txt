@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (2010-03-26)
 ----------------
 
 - Added the 'Post to Fan Page' feature.
@@ -29,7 +29,7 @@ Changelog
 
 - Added a jq() wrapper to the feature loader initialization call so that it
   doesn't happen until the DOM is fully loaded.
-  [matty]
+  [yomatters]
 
 - Removed bogus dependency of the Fan Box profile on the Basic Facebook Connect
   integration profile.

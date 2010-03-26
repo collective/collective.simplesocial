@@ -252,6 +252,6 @@ Credits
 =======
 
 collective.simplesocial was developed by David Glick for `Groundwire`_
-(formerly ONE/Northwest).
+(formerly ONE/Northwest).  Matt Yoder has also contributed.
 
 .. _`Groundwire`: http://groundwire.org
