@@ -134,6 +134,7 @@ When a user submits a feed form, collective.simplesocial sends along an
 attachment to Facebook with information about the content item where the
 feed form was displayed. By default, this attachment contains the following
 information:
+
  * The title of the content item
  * The URL of the content item
  * The content item's description, if it provides one
@@ -174,12 +175,12 @@ Configuring the 'Post to Fan Page' feature
 2. Go to Site Setup.
 3. Click `Add/Remove Products`.
 4. Check 'Post to Facebook Fan Page' and click Install.
-4. Return to Site Setup.
-5. Click `Facebook Connect`.
-6. Paste in the API Key that you recorded above when creating your Facebook
+5. Return to Site Setup.
+6. Click `Facebook Connect`.
+7. Paste in the API Key that you recorded above when creating your Facebook
    application.  Click Save.  If successful, you should see a yellow message
    saying that the connection has been verified.
-7. Select the Facebook fan page you want to post to.
+8. Select the Facebook fan page you want to post to.
 
 Now the 'Post to Fan Page' link should show up when you are logged in. To post
 to Facebook, click on the link.  You will be prompted to confirm the message
