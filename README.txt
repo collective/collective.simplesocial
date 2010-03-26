@@ -127,6 +127,31 @@ feed form will not appear automatically.  Instead, a message will be shown
 along with a Facebook Connect button.  Clicking this button will allow the
 visitor to log into Facebook, after which the feed form will be displayed.
 
+Customizing the Feed Attachment
+-------------------------------
+
+When a user submits a feed form, collective.simplesocial sends along an
+attachment to Facebook with information about the content item where the
+feed form was displayed. By default, this attachment contains the following
+information:
+ * The title of the content item
+ * The URL of the content item
+ * The content item's description, if it provides one
+ * The content item's tile image, if it provides one, or the site logo
+
+These defaults are provided by the DefaultFeedFormDataProvider adapter. It
+is possible to override the defaults globally or for a particular content type
+by registering an adapter that provides the IFeedFormDataProvider interface.
+This interface provides methods for getting the attachment for the current
+context and for overriding the settings specified in the portlet assignment.
+For more information, see 
+collective.simplesocial.feedform.facebookfeedform.IFeedFormDataProvider and the
+documentation for the `FB.Connect.streamPublish`_ method and `Attachment`_
+object.
+
+.. _`FB.Connect.streamPublish`: http://wiki.developers.facebook.com/index.php/FB.Connect.streamPublish
+.. _`Attachment`: http://wiki.developers.facebook.com/index.php/Attachment_%28Streams%29
+
 Post to Facebook Fan Page
 =========================
 
