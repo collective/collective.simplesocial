@@ -9,6 +9,7 @@ UNICODE_MAP = {
     2013: "-",
     2014: "--",
     2015: "--",
+    2019: "'",
 }
 
 def json_escape(s):
@@ -28,4 +29,6 @@ def json_serialize(parent):
         for (key, value) in parent.items():
             json_parts.append('%s: %s' % (json_serialize(key), json_serialize(value)))
         return '{%s}' % ', '.join(json_parts)
+    if not type(parent) == unicode:
+        parent = unicode(parent, 'utf-8')
     return '"%s"' % json_escape(mapUnicode(parent, UNICODE_MAP))
