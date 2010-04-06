@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2 (2010-04-06)
+----------------
+
 - Fixed a unicode decode bug in the JSON serializer.
   [yomatters]
 
