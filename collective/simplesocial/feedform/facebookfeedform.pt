@@ -1,4 +1,5 @@
-<dl id="fb-login-button" class="portalMessage info" style="display: none;">
+<dl tal:condition="view/feedform_available"
+    id="fb-login-button" class="portalMessage info" style="display: none;">
     <dd>
 <tal:block tal:replace="string:${view/user_message_prompt}"/>
 Click the button to log into Facebook and post a message to your feed.
@@ -7,6 +8,7 @@ Click the button to log into Facebook and post a message to your feed.
     </dd>
 </dl>
 <script type="text/javascript"
+    tal:condition="view/feedform_available"
     tal:content="structure string:
 //<![CDATA[
 function simplesocial_streamPublish() {
@@ -32,7 +34,13 @@ FB.ensureInit(function() {
     
     <dt class="portletHeader">Facebook Feed Form</dt>
     <dd class="portletItem">
-        <p>This portlet causes a Facebook feed form to be displayed on this page.
+        <p>This portlet causes a Facebook feed form to be displayed on this page
+            <strong tal:condition="python:view.data.availability == 'view'">
+                every time the item is viewed.
+            </strong>
+            <strong tal:condition="python:view.data.availability == 'modified'">
+                every time the item is saved.
+            </strong>
         <a tal:define="canonical_object context/@@plone_context_state/canonical_object;
                        contextual_portlets_helper nocall:canonical_object/@@manage-portlets-macros;
                        manager_url python:contextual_portlets_helper.getAssignmentMappingUrl(view.manager)"

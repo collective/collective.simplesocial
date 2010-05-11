@@ -1,5 +1,6 @@
 from zope.interface import Interface, implements
 from zope.app.component.hooks import getSite
+from zope.schema.vocabulary import SimpleVocabulary
 
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
@@ -128,6 +129,16 @@ class IFacebookFeedForm(IPortletDataProvider):
         required = False,
         missing_value = u'',
         )
+        
+    availability = schema.Choice(
+        title=_(u'Feed Form Availability'),
+        description=_(u'Choose when to show the feed form.'),
+        vocabulary=SimpleVocabulary.fromItems([
+            (u'Every time the item is viewed', u'view'),
+            (u'Every time the item is saved', u'modified'),
+        ]),
+        default=u'view'
+    )
 
 class Assignment(base.Assignment):
     """Portlet assignment.
@@ -142,14 +153,16 @@ class Assignment(base.Assignment):
     image_link_href = u''
     action_link_text = u''
     action_link_href = u''
+    availability = u'view'
 
     def __init__(self, action_title, user_message_prompt, user_message, 
-                 action_link_text, action_link_href):
+                 action_link_text, action_link_href, availability):
         self.action_title = action_title
         self.user_message_prompt = user_message_prompt
         self.user_message = user_message
         self.action_link_text = action_link_text
         self.action_link_href = action_link_href
+        self.availability = availability
 
     @property
     def title(self):
@@ -175,7 +188,22 @@ class Renderer(base.Renderer):
         data = data_provider.getSettings(data)
         self.attachment_data = data_provider.getAttachment()
         super(Renderer, self).__init__(context, request, view, manager, data)
-
+        
+    @property
+    def feedform_available(self):
+        """
+        Returns True if the feed form should be available for the current
+        request.
+        """
+        
+        availability = getattr(self.data, 'availability', u'view')
+        if availability == u'view':
+            return True
+        elif availability == u'modified': 
+            if self.request.get('HTTP_REFERER', '').endswith('/edit'):
+                return True
+        return False
+        
     @property
     def attachment(self):
         result_dict = self.attachment_data.copy()
