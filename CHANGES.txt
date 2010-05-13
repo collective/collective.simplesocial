@@ -7,6 +7,9 @@ Changelog
 - Added the option to only show the feed form after a save.
   [yomatters]
 
+- Changed Facebook fanbox portlet HTML to meet Plone standards, fixes #1.
+  [jaroel]
+
 1.2 (2010-04-06)
 ----------------
 
