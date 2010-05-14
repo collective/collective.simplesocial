@@ -181,7 +181,7 @@ class Renderer(base.Renderer):
     """
 
     render = ViewPageTemplateFile('facebookfeedform.pt')
-    callback = 'function(res){}'
+    callback = 'feedform_callback'
 
     def __init__(self, context, request, view, manager, data):
         data_provider = IFeedFormDataProvider(context)
@@ -203,6 +203,16 @@ class Renderer(base.Renderer):
             if self.request.get('HTTP_REFERER', '').endswith('/edit'):
                 return True
         return False
+        
+    @property
+    def feedform_title(self):
+        """
+        Returns the title of the feed form for Analytics tracking.
+        """
+        
+        if self.data.action_title:
+            return json_escape('User %s') % self.data.action_title
+        return 'Untitled feed form'
         
     @property
     def attachment(self):

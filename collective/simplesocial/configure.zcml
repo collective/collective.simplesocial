@@ -2,12 +2,17 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.simplesocial">
 
   <include package=".browser" />
   <include package=".fanbox" />
   <include package=".feedform" />
   <include package=".fanpage_post" />
+
+  <configure zcml:condition="installed collective.googleanalytics.tracking">
+      <include package=".analytics" />
+  </configure>
   
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
