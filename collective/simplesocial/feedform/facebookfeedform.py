@@ -1,3 +1,4 @@
+from zExceptions import NotFound
 from zope.interface import Interface, implements
 from zope.app.component.hooks import getSite
 from zope.schema.vocabulary import SimpleVocabulary
@@ -71,7 +72,7 @@ class DefaultFeedFormDataProvider(object):
                     'href': self.context.absolute_url(),
                 }]
             })
-        except (AttributeError, KeyError):
+        except (AttributeError, KeyError, NotFound):
             portal = getSite()
             base_props = portal.restrictedTraverse('base_properties')
             logo_name = getattr(base_props, 'logoName', None)

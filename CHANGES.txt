@@ -4,6 +4,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
+- Also catch NotFound when trying to look up 'image_tile'.
+  [davisagli]
+
 - Added a feed form tracking plugin for collective.googleanalytics.
   [yomatters]
 
