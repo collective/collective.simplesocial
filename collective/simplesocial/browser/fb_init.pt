@@ -1,0 +1,21 @@
+<div id="fb-root"></div>    
+<script type="text/javascript" tal:content="structure string:
+  var simplesocial_queue = simplesocial_queue || [];
+  window.fbAsyncInit = function() {
+    FB.init(${view/init_options});
+    for (i=0;i<simplesocial_queue.length;i++) {
+        simplesocial_queue[i]();
+    }
+    simplesocial_queue = {
+        push: function (callback) {
+            callback();
+        }
+    }
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+"></script>
