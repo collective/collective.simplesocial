@@ -4,6 +4,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Overrided default portlet assignment import/export handler for fanbox portlet
+  to allow setting of 'stream' Choice field using portlets.xml GS file.
+  [piv]
+
 - Provided defaults for fanbox portlet thus make it possible to assign it using
   portlets.xml GS file.
   [piv]

@@ -9,6 +9,7 @@
   <include package=".fanbox" />
   <include package=".feedform" />
   <include package=".fanpage_post" />
+  <include package=".exportimport" />
 
   <configure zcml:condition="installed collective.googleanalytics.tracking">
       <include package=".analytics" />
