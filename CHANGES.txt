@@ -4,6 +4,9 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Provided defaults for fanbox portlet thus make it possible to assign it using
+  portlets.xml GS file.
+  [piv]
 
 1.3 (2010-06-02)
 ----------------

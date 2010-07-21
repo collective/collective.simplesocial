@@ -62,7 +62,8 @@ class Assignment(base.Assignment):
 
     implements(IFacebookFanBox)
 
-    def __init__(self, profile_id, stream, connections, width, height):
+    def __init__(self, profile_id=u'', stream=1, connections=10, width=200,
+                 height=554):
         self.profile_id = profile_id
         self.stream = stream
         self.connections = connections
