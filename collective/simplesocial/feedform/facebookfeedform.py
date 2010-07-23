@@ -238,6 +238,15 @@ class Renderer(base.Renderer):
     @property
     def user_message(self):
         return json_escape(self.data.user_message)
+        
+    def ui_options(self):
+        return json_serialize({
+            'method': 'stream.publish',
+            'user_message': self.user_message,
+            'user_message_prompt': self.user_message_prompt,
+            'action_links': self.action_links,
+            'attachment': self.attachment,
+        })
 
 class AddForm(base.AddForm):
     """Portlet add form.
@@ -248,7 +257,7 @@ class AddForm(base.AddForm):
     """
     form_fields = form.Fields(IFacebookFeedForm)
     extra_script = "jq('input[type=text]').attr('size', '50');"
-
+    
     def render(self):
         # make sure API Key is configured
         pprop = getToolByName(self.context, 'portal_properties')
