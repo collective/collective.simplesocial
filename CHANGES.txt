@@ -4,6 +4,11 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Replaced fan box with a like box.
+  [yomatters]
+
+- Took advantage of the Facebook's new Javascript SDK.
+  [yomatters]
 
 1.3 (2010-06-02)
 ----------------

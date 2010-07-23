@@ -10,9 +10,9 @@
   
   <genericsetup:registerProfile
       name="fanbox"
-      title="Facebook Fan Box portlet"
+      title="Facebook Like Box portlet"
       directory="../profiles/fanbox"
-      description="Enables the Facebook Fan Box portlet."
+      description="Enables the Facebook Like Box portlet."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

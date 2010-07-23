@@ -2,7 +2,7 @@
 <portlets>
    <portlet
      addview="collective.simplesocial.fanbox.FacebookFanBox"
-     title="Facebook Fan Box"
-     description="Displays a &quot;fan box&quot; promoting a particular Facebook page."
+     title="Facebook Like Box"
+     description="Displays a Like box promoting a particular Facebook page."
      />
 </portlets>
