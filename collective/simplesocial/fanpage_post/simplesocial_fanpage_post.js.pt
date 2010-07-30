@@ -1,3 +1,5 @@
+var fanpage_post_callback = fanpage_post_callback || function (response) {};
+
 (function($){
   $(function() {
     var docac = $('.documentActions ul');
@@ -7,11 +9,31 @@
     var actor_id = <tal:block tal:replace="view/actor_id"/>;
     if (!actor_id) return;
     
+    function simplesocial_pagePublish(attach) {
+        FB.ui({
+                method: 'stream.publish',
+                attachment: attach,
+                actor_id: actor_id
+            },
+            fanpage_post_callback
+        );
+    }
+    
     $('<li><a href="#">Post to Fan Page</a></li>')
         .click(function(e) {
             e.preventDefault();
             $.getJSON(window.location.href + '/@@simplesocial_attachment', null, function(attach) {
-              FB.Connect.streamPublish('', attach, null, null, null, null, null, actor_id);
+                 simplesocial_queue.push(function () {
+                     FB.getLoginStatus(function(response) {
+                         if (response.session) {
+                             simplesocial_pagePublish();
+                         } else {
+                             FB.login(function (response) {
+                                 simplesocial_pagePublish();
+                             });
+                         }
+                     });
+                 });
             });
         })
         .appendTo(docac);
