@@ -1,7 +1,7 @@
 <script type="text/javascript" tal:content="structure string:
-    var feedform_callback = function (response) {
+    SimpleSocial.callbacks.feedForm = function (response) {
         if (response != 'null') {
-            _gaq.push(['_trackEvent', 'Facebook', feedform_title]);                 
+            _gaq.push(['_trackEvent', 'Facebook', SimpleSocial.settings.feedform_title]);                 
         }
     };
 ">
