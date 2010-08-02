@@ -261,11 +261,11 @@ class AddForm(base.AddForm):
     def render(self):
         # make sure API Key is configured
         pprop = getToolByName(self.context, 'portal_properties')
-        api_key = getattr(pprop.fb_properties, 'api_key', None)
-        if not api_key:
+        app_id = getattr(pprop.fb_properties, 'app_id', None)
+        if not app_id:
             portal_url = getToolByName(self.context, 'portal_url')()
             IStatusMessage(self.request).addStatusMessage(_(u'You must configure your '
-                u'Facebook API Key before you can add a Feed Form portlet.'))
+                u'Facebook Application ID before you can add a Feed Form portlet.'))
             return self.request.RESPONSE.redirect(portal_url + '/@@facebook-settings')
         
         return base.AddForm.render(self)

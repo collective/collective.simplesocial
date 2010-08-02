@@ -15,14 +15,6 @@
       description="Adds a document action which allows Managers to post Plone pages to a Facebook Fan Page."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
-  <browser:page
-    name="simplesocial_fanpage_post.js"
-    for="*"
-    class=".fanpage_post.FanPagePostView"
-    template="simplesocial_fanpage_post.js.pt"
-    permission="zope.Public"
-    />
 
   <browser:page
     name="simplesocial_attachment"
@@ -31,5 +23,11 @@
     attribute="attachment"
     permission="zope.Public"
     />
+    
+  <browser:resource
+      name="simplesocial_fanpage_post.js"
+      file="simplesocial_fanpage_post.js"
+      layer="..browser.interfaces.IBrowserLayer"
+      />
 
 </configure>

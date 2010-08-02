@@ -1,16 +1,12 @@
 <div id="fb-root"></div>    
 <script type="text/javascript" tal:content="structure string:
-  var simplesocial_queue = simplesocial_queue || [];
+  SimpleSocial.addSettings(${view/settings});
   window.fbAsyncInit = function() {
-    FB.init(${view/init_options});
-    for (i=0;i<simplesocial_queue.length;i++) {
-        simplesocial_queue[i]();
-    }
-    simplesocial_queue = {
-        push: function (callback) {
-            callback();
+    SimpleSocial.connect(function(response) {
+        if (response.connected) {
+            SimpleSocial.processQueue();
         }
-    }
+    });
   };
   (function() {
     var e = document.createElement('script'); e.async = true;

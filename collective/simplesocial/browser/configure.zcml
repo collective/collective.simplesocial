@@ -41,5 +41,11 @@
   <adapter
       factory=".configlet.FacebookSettingsAdapter"
       />
+      
+  <browser:resource
+      name="simplesocial.js"
+      file="simplesocial.js"
+      layer=".interfaces.IBrowserLayer"
+      />
 
 </configure>

@@ -44,87 +44,57 @@
         </tal:block>
     </tal:block>
         
-    <script type="text/javascript">
-    var simplesocial_queue = simplesocial_queue || [];
-    
-    function simplesocial_connect(app_id, callback) {
-        if (!isNaN(app_id)) {
-            var query_template = 'SELECT display_name FROM application WHERE app_id={0}';
-            var apps = FB.Data.query(query_template, app_id);
-            FB.Data.waitOn([apps], function(args) {
-                if (apps.value.length) {
-                    FB.init({appId: app_id, status: true, cookie: true, xfbml: true});
-                    callback({'connected': true, 'display_name': apps.value[0].display_name});
-                }
-            });
-        }
-        callback({'connected': false});
-    }
-    
-    function simplesocial_populateChoices(element_id, query) {
-        var el = document.getElementById(element_id);
-        if (el) {
-            FB.Data.waitOn([query], function(args) {
-                if (query.value.length && query.fields.length == 2) {
-                    var choices = document.createElement('select');
-                    choices.id = choices.name = element_id;
-                    var current_value = el.value;
-                    for (i=0; i<query.value.length; i++) {
-                        var row = query.value[i];
-                        var option = document.createElement('option');
-                        option.value = row[query.fields[0]];
-                        option.text = row[query.fields[1]];
-                        if (row[query.fields[0]] == current_value) option.selected = 'selected';
-                        choices.appendChild(option);
-                    }
-                    el.parentNode.replaceChild(choices, el);
-                }
-            });
-        }
-    }
-    
-    function simplesocial_setupChoices(session) {
-        var query_template = 'SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid={0})';
-        var pages = FB.Data.query(query_template, session.uid);
-        simplesocial_populateChoices('form.page_id', pages);
-    }
-        
+    <script type="text/javascript">    
     (function ($) {
-        simplesocial_queue.push(function () {
-            // Set the connection status.
-            var status = jq('<span id="fb-connection-status" class="checking"' + '>Checking...<' + '/span>');
-            status.css('margin-left', '10px');
-            jq('#form\\.app_id').after(status).blur(function () {
-                var app_id_str = jq('#form\\.app_id').val();
-                var app_id = parseInt(app_id_str);
-                if (!app_id_str) {
-                    status.attr('class', 'not-connected');
-                    status.text('Not connected. Enter a Facebook application ID.');
-                } else {
-                    simplesocial_connect(app_id, function (response) {
-                        if (response.connected) {
-                            var app_name = response.display_name;
-                            status.attr('class', 'connected');
-                            status.html('Connected to <' + 'strong>' + app_name + '<' + '/strong>.');
-                        } else {
-                            status.attr('class', 'not-connected');
-                            status.text('Not connected. Invalid application ID.');
+        function simplesocial_setupChoices(session) {
+            var query_template = 'SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid={0})';
+            var pages = FB.Data.query(query_template, session.uid);
+            SimpleSocial.populateChoices('form.page_id', pages);
+        }
+        
+        function simplesocial_unsetupChoices() {
+            SimpleSocial.unpopulateChoices('form.page_id');
+        }
+        
+        var status = jq('<span id="fb-connection-status" class="checking"' + '>Checking...<' + '/span>');
+        status.css('margin-left', '10px');
+        jq('#form\\.app_id').after(status).blur(function () {
+            var app_id_str = jq('#form\\.app_id').val();
+            if (!app_id_str) {
+                status.attr('class', 'not-connected');
+                status.text('Not connected. Enter a Facebook application ID.');
+            } else {
+                SimpleSocial.settings.app_id = parseInt(app_id_str);
+                SimpleSocial.connect(function (response) {
+                    if (response.connected) {
+                        var app_name = response.display_name;
+                        status.attr('class', 'connected');
+                        status.html('Connected to <' + 'strong>' + app_name + '<' + '/strong>.');
+                        if (!SimpleSocial.queue.processed) {
+                            SimpleSocial.processQueue();
                         }
-                    });
-                }
-            }).blur();
-            
-            // Set up the login button.
-            var login_block = jq('<'+ 'p' + '><' + '/p>');
-            var login_button = jq('<' + 'button' + '><' + '/button' + '>');
-            var login_instructions = jq('<span' + '><' + '/span>');
-            login_block.append(login_button, login_instructions).css('margin-top', '10px');
-            jq('#formfield-form-app_id').after(login_block);
+                    } else {
+                        status.attr('class', 'not-connected');
+                        status.text('Not connected. Invalid application ID.');
+                    }
+                });
+            }
+        });
+        
+        SimpleSocial.queue.push(function () {
+            // Find the form fields that require login.
             var fields = jq('#content form .field').not('#formfield-form-app_id').hide();
             
             // We only need to worry about login if we have more fields than
             // just the application ID.
             if (fields.length) {
+                // Set up the login button.
+                var login_block = jq('<'+ 'p' + '><' + '/p>');
+                var login_button = jq('<' + 'button' + '><' + '/button' + '>');
+                var login_instructions = jq('<span' + '><' + '/span>');
+                login_block.append(login_button, login_instructions).css('margin-top', '10px');
+                jq('#formfield-form-app_id').after(login_block);
+                
                 function simplesocial_updateLoginStatus(session) {
                     if (session) {
                         // The user logged in.
@@ -135,6 +105,7 @@
                         login_button.click(simplesocial_logout);
                     } else {
                         // The user logged out.
+                        simplesocial_unsetupChoices();
                         login_button.text('Login to Facebook');
                         login_instructions.text(' to continue configuring SimpleSocial.');
                         login_button.click(simplesocial_login);
@@ -156,12 +127,15 @@
                 }
 
                 simplesocial_updateLoginStatus(false);
-
+                
                 // Check to see if the user is already logged in.
                 FB.getLoginStatus(function (response) {
                    simplesocial_updateLoginStatus(response.session);
                 });
             }
+            
+            // Set the connection status.
+            jq('#form\\.app_id').blur();
 
         });
     })(jQuery);
