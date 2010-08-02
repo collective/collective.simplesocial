@@ -212,7 +212,7 @@ class Renderer(base.Renderer):
         """
         
         if self.data.action_title:
-            return json_escape('User %s') % self.data.action_title
+            return json_escape('User %s' % self.data.action_title)
         return 'Untitled feed form'
         
     @property

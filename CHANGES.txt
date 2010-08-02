@@ -4,6 +4,9 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Fixed escaping bug in the feed form portlet's action title.
+  [yomatters]
+
 - Replaced fan box with a like box.
   [yomatters]
 
