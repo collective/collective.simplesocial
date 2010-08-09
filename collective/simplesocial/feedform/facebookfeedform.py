@@ -259,7 +259,7 @@ class AddForm(base.AddForm):
     extra_script = "jq('input[type=text]').attr('size', '50');"
     
     def render(self):
-        # make sure API Key is configured
+        # make sure application ID is configured
         pprop = getToolByName(self.context, 'portal_properties')
         app_id = getattr(pprop.fb_properties, 'app_id', None)
         if not app_id:

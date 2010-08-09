@@ -1,0 +1,43 @@
+<configure
+    xmlns:zope="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.simplesocial">
+
+    <genericsetup:upgradeStep
+        source="1.0"
+        destination="1.4"
+        title="Upgrade fbconnect from 1.0 to 1.4"
+        description=""
+        profile="collective.simplesocial:fbconnect"
+        handler="collective.simplesocial.upgrades.fbconnect_10_to_14"
+        />
+    
+    <genericsetup:upgradeStep
+        source="1.0"
+        destination="1.4"
+        title="Upgrade fanbox from 1.0 to 1.4"
+        description=""
+        profile="collective.simplesocial.fanbox:fanbox"
+        handler="collective.simplesocial.upgrades.fanbox_10_to_14"
+        />
+        
+    <genericsetup:upgradeStep
+        source="1.0"
+        destination="1.4"
+        title="Upgrade fanpage_post from 1.0 to 1.4"
+        description=""
+        profile="collective.simplesocial.fanpage_post:simplesocial_fanpage_post"
+        handler="collective.simplesocial.upgrades.fanpage_post_10_to_14"
+        />
+        
+    <genericsetup:upgradeStep
+        source="1.0"
+        destination="1.4"
+        title="Upgrade feedform from 1.0 to 1.4"
+        description=""
+        profile="collective.simplesocial.feedform:feedform"
+        handler="collective.simplesocial.upgrades.null_upgrade_step"
+        />
+
+</configure>

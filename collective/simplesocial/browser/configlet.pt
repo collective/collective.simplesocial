@@ -14,7 +14,7 @@
 <div metal:fill-slot="prefs_configlet_main">
 
     <h1 class="documentFirstHeading"
-        i18n:translate="">Facebook Connect Configuration</h1>
+        i18n:translate="">Facebook Configuration</h1>
 
     <a href=""
         class="link-parent"
@@ -24,17 +24,17 @@
             Up to Site Setup
     </a>
     
-    <p>To use Facebook Connect features, you must configure a Facebook application.</p>
+    <p>To use Facebook features, you must configure a Facebook application.</p>
     
     <ul>
         <li>Go to the <a href="http://www.facebook.com/developers/">Facebook 
             Developer application</a>. If necessary, allow it access to your profile.</li>
         <li>Click the <strong>Set Up New Application</strong> button and fill out the form.</li>
-        <li>Note the application ID of your new application.</li>
+        <li>Note the <strong>application ID</strong> of your new application.</li>
         <li>In the Facebook application's settings, click on the <strong>Connect</strong> tab.
             Enter the URL of this site into the <strong>Connect URL</strong> field.</li>
-        <li>Return to this control panel and enter the application ID. Then log into Facebook
-            to complete the configuration.</li>
+        <li>Return to this control panel and enter the application ID. Then, if prompted, 
+            log into Facebook to complete the configuration.</li>
     </ul>
 
     <tal:block metal:use-macro="context/base-pageform.html/index/macros/form">

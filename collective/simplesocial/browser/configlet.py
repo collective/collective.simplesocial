@@ -50,7 +50,7 @@ class FacebookSettingsAdapter(object):
 
 class FacebookSettingsForm(ControlPanelForm):
     template = ViewPageTemplateFile('configlet.pt')
-    form_name = _(u'Facebook Connect Configuration')
+    form_name = _(u'Facebook Configuration')
     
     @property
     def form_fields(self):

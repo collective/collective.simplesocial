@@ -9,17 +9,19 @@
   <include package=".fanbox" />
   <include package=".feedform" />
   <include package=".fanpage_post" />
+  
+  <include zcml:condition="installed Products.GenericSetup.upgrade"
+      file="upgrades.zcml"/>
 
-  <configure zcml:condition="installed collective.googleanalytics.tracking">
-      <include package=".analytics" />
-  </configure>
+  <include zcml:condition="installed collective.googleanalytics.tracking"
+      package=".analytics" />
   
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="fbconnect"
-      title="Basic Facebook Connect support"
+      title="Basic Facebook support"
       directory="profiles/fbconnect"
-      description="Installs the basic pieces required for integrating with Facebook Connect.  You must configure an API key via the control panel after installation."
+      description="Installs the basic pieces required for integrating with Facebook.  You must configure an application ID via the control panel after installation."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 

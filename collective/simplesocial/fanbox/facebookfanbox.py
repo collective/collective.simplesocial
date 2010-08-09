@@ -5,7 +5,9 @@ from plone.portlets.interfaces import IPortletDataProvider
 
 from zope import schema
 from zope.formlib import form
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.simplesocial import simplesocialMessageFactory as _
 
@@ -58,8 +60,15 @@ class Assignment(base.Assignment):
     """
 
     implements(IFacebookFanBox)
+    
+    profile_id = None
+    width = 200
+    connections = 10
+    show_stream = True
+    show_header = True
 
-    def __init__(self, profile_id, width, connections, show_stream, show_header):
+    def __init__(self, profile_id=None, width=200, \
+        connections=10, show_stream=True, show_header=True):
         self.profile_id = profile_id
         self.width = width
         self.connections = connections
@@ -96,6 +105,16 @@ class AddForm(base.AddForm):
 
     def create(self, data):
         return Assignment(**data)
+        
+    def render(self):
+        # make sure application ID is configured
+        pprop = getToolByName(self.context, 'portal_properties')
+        app_id = getattr(pprop.fb_properties, 'app_id', None)
+        if not app_id:
+            portal_url = getToolByName(self.context, 'portal_url')()
+            IStatusMessage(self.request).addStatusMessage(_(u'You must configure your '
+                u'Facebook Application ID before you can add a Like Box portlet.'))
+            return self.request.RESPONSE.redirect(portal_url + '/@@facebook-settings')
 
 
 class EditForm(base.EditForm):
