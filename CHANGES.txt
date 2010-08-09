@@ -7,7 +7,8 @@ Changelog
 - Fixed escaping bug in the feed form portlet's action title.
   [yomatters]
 
-- Replaced fan box with a like box.
+- Replaced fan box with a like box. The like box portlet is rendered
+  using XFBML, so the basic Facebook support profile is now a dependency.
   [yomatters]
 
 - Took advantage of the Facebook's new Javascript SDK.
