@@ -115,7 +115,8 @@ class AddForm(base.AddForm):
             IStatusMessage(self.request).addStatusMessage(_(u'You must configure your '
                 u'Facebook Application ID before you can add a Like Box portlet.'))
             return self.request.RESPONSE.redirect(portal_url + '/@@facebook-settings')
-
+        
+        return base.AddForm.render(self)
 
 class EditForm(base.EditForm):
     """Portlet edit form.

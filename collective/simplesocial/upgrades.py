@@ -35,7 +35,7 @@ def fanbox_10_to_14(setup_tool):
     if not setup_tool.getProfileImportDate(fbconnect_profile):
         setup_tool.runAllImportStepsFromProfile(fbconnect_profile)
         IStatusMessage(setup_tool.REQUEST).addStatusMessage(
-            _(u'The Facebook Like Box  portlet now requires a Facebook application.' +
+            _(u'The Facebook Like Box portlet now requires a Facebook application.' +
             ' Please visit the Facebook Settings control panel to configure one.')
         )
 
