@@ -212,7 +212,7 @@ class Renderer(base.Renderer):
         """
         
         if self.data.action_title:
-            return json_escape('User %s') % self.data.action_title
+            return json_escape('User %s' % self.data.action_title)
         return 'Untitled feed form'
         
     @property
@@ -238,6 +238,15 @@ class Renderer(base.Renderer):
     @property
     def user_message(self):
         return json_escape(self.data.user_message)
+        
+    def ui_options(self):
+        return json_serialize({
+            'method': 'stream.publish',
+            'user_message': self.user_message,
+            'user_message_prompt': self.user_message_prompt,
+            'action_links': self.action_links,
+            'attachment': self.attachment,
+        })
 
 class AddForm(base.AddForm):
     """Portlet add form.
@@ -248,15 +257,15 @@ class AddForm(base.AddForm):
     """
     form_fields = form.Fields(IFacebookFeedForm)
     extra_script = "jq('input[type=text]').attr('size', '50');"
-
+    
     def render(self):
-        # make sure API Key is configured
+        # make sure application ID is configured
         pprop = getToolByName(self.context, 'portal_properties')
-        api_key = getattr(pprop.fb_properties, 'api_key', None)
-        if not api_key:
+        app_id = getattr(pprop.fb_properties, 'app_id', None)
+        if not app_id:
             portal_url = getToolByName(self.context, 'portal_url')()
             IStatusMessage(self.request).addStatusMessage(_(u'You must configure your '
-                u'Facebook API Key before you can add a Feed Form portlet.'))
+                u'Facebook Application ID before you can add a Feed Form portlet.'))
             return self.request.RESPONSE.redirect(portal_url + '/@@facebook-settings')
         
         return base.AddForm.render(self)

@@ -1,0 +1,17 @@
+<div id="fb-root"></div>    
+<script type="text/javascript" tal:content="structure string:
+  SimpleSocial.addSettings(${view/settings});
+  window.fbAsyncInit = function() {
+    SimpleSocial.connect(function(response) {
+        if (response.connected) {
+            SimpleSocial.processQueue();
+        }
+    });
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+"></script>

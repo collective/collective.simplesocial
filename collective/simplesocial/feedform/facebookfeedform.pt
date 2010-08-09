@@ -10,26 +10,21 @@ Click the button to log into Facebook and post a message to your feed.
 <script type="text/javascript"
     tal:condition="view/feedform_available"
     tal:content="structure string:
-//<![CDATA[
-var feedform_callback = feedform_callback || function (response) {};
-
-function simplesocial_streamPublish() {
-    feedform_title = '${view/feedform_title}';
-    FB.Connect.streamPublish('${view/user_message}', ${view/attachment}, ${view/action_links}, null, '${view/user_message_prompt}', ${view/callback});
-}
-
-FB.ensureInit(function() {
-  var fb_status = FB.Connect.get_status().result;
-  if (fb_status == FB.ConnectState.connected ||
-      fb_status == FB.ConnectState.appNotAuthorized) {
-      simplesocial_streamPublish();
-  } else {
-    jq(function() {
-      jq('#fb-login-button').insertBefore('#kssPortalMessage').show()
+SimpleSocial.settings.feedform_title = '${view/feedform_title}';
+var simplesocial_streamPublish = function () {
+    FB.ui(${view/ui_options}, SimpleSocial.getCallback('feedForm'));
+};
+SimpleSocial.queue.push(function () {
+    FB.getLoginStatus(function(response) {
+      if (response.session) {
+          simplesocial_streamPublish();
+      } else {
+          jq(function() {
+            jq('#fb-login-button').insertBefore('#kssPortalMessage').show();
+          });
+      }
     });
-  }
 });
-//]]>
 "></script>
 
 <dl class="portlet portletFacebookFeedForm"

@@ -4,9 +4,15 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Overrided default portlet assignment import/export handler for fanbox portlet
-  to allow setting of 'stream' Choice field using portlets.xml GS file.
-  [piv]
+- Fixed escaping bug in the feed form portlet's action title.
+  [yomatters]
+
+- Replaced fan box with a like box. The like box portlet is rendered
+  using XFBML, so the basic Facebook support profile is now a dependency.
+  [yomatters]
+
+- Took advantage of the Facebook's new Javascript SDK.
+  [yomatters]
 
 - Provided defaults for fanbox portlet thus make it possible to assign it using
   portlets.xml GS file.

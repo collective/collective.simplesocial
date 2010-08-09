@@ -6,15 +6,8 @@
   <browser:viewlet
       name="collective.simplesocial.viewlets.fbfeatureloader"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-      template="featureloader.pt"
+      class=".fb_init.FBInitViewlet"
       permission="zope.Public"
-      layer=".interfaces.IBrowserLayer"
-      />
-
-  <!-- this is needed for communication with Facebook -->
-  <browser:resource
-      name="xd_receiver.htm"
-      file="xd_receiver.htm"
       layer=".interfaces.IBrowserLayer"
       />
 
@@ -47,6 +40,12 @@
   <!-- adapter for storing settings in a property sheet -->
   <adapter
       factory=".configlet.FacebookSettingsAdapter"
+      />
+      
+  <browser:resource
+      name="simplesocial.js"
+      file="simplesocial.js"
+      layer=".interfaces.IBrowserLayer"
       />
 
 </configure>

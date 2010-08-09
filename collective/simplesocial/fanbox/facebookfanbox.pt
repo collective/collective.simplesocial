@@ -1,9 +1,17 @@
 <dl class="portlet portletFacebookFanBox"
-    i18n:domain="collective.portlet.portlets">
-    <dt>Facebook fanbox<dt>
-    <dd>
-        <iframe scrolling="no" frameborder="0" allowtransparency="true"
-            tal:attributes="src string:http://www.facebook.com/connect/connect.php?id=${view/data/profile_id}&connections=${view/data/connections}&stream=${view/data/stream};
-                            style string:border: none;; width: ${view/data/width}px;; height: ${view/data/height}px;;"></iframe>
+    i18n:domain="collective.simplesocial">
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span class="hiddenStructure">Facebook Like Box</span>
+        <span class="portletTopRight"></span>
+    </dt>
+    <dd class="portletItem">
+        <fb:like-box 
+            tal:attributes="profile_id view/data/profile_id;
+                width view/data/width;
+                connections view/data/connections;
+                stream python:str(view.data.show_stream).lower();
+                header python:str(view.data.show_header).lower();">
+        </fb:like-box>
     </dd>
 </dl>

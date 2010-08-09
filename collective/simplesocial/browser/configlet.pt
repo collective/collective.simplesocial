@@ -14,7 +14,7 @@
 <div metal:fill-slot="prefs_configlet_main">
 
     <h1 class="documentFirstHeading"
-        i18n:translate="">Facebook Connect Configuration</h1>
+        i18n:translate="">Facebook Configuration</h1>
 
     <a href=""
         class="link-parent"
@@ -23,33 +23,19 @@
         i18n:translate="label_up_to_plone_setup">
             Up to Site Setup
     </a>
-
-    <p>To use Facebook Connect features, you must configure a Facebook application
-    API key here.  To get an API key:</p>
+    
+    <p>To use Facebook features, you must configure a Facebook application.</p>
     
     <ul>
-        <li>Go to the Facebook Developer application at
-            <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a>.
-            If necessary, allow it access to your profile.
-        <li>Click the <strong>Set Up New Application</strong> button and fill out the form.
-        <li>Take note of the <strong>API Key</strong> that is displayed, and enter it here.
+        <li>Go to the <a href="http://www.facebook.com/developers/">Facebook 
+            Developer application</a>. If necessary, allow it access to your profile.</li>
+        <li>Click the <strong>Set Up New Application</strong> button and fill out the form.</li>
+        <li>Note the <strong>application ID</strong> of your new application.</li>
         <li>In the Facebook application's settings, click on the <strong>Connect</strong> tab.
-            Enter the URL of this site into the <strong>Connect URL</strong> field.  <em>Note:
-            This site must be publicly accessible in order for communication between Facebook
-            and the site to work.</em>
+            Enter the URL of this site into the <strong>Connect URL</strong> field.</li>
+        <li>Return to this control panel and enter the application ID. Then, if prompted, 
+            log into Facebook to complete the configuration.</li>
     </ul>
-
-<p>If the connection has been successfully configured, you will see a verification message here.</p>
-<tal:block tal:replace="structure string:
-    &lt;fb:serverfbml style=&quot;height:75px;&quot;&gt;
-     &lt;script type=&quot;text/fbml&quot;&gt;
-      &lt;fb:success&gt;
-        &lt;fb:message&gt;Facebook connection verified!&lt;/fb:message&gt;
-        If you can read this, then you have successfully connected to the &lt;fb:fbml&gt;&lt;fb:application-name/&gt;&lt;/fb:fbml&gt; application.
-      &lt;/fb:success&gt;
-     &lt;/script&gt;
-    &lt;/fb:serverfbml&gt;
-"/>
 
     <tal:block metal:use-macro="context/base-pageform.html/index/macros/form">
         <tal:block metal:fill-slot="authenticator"/>
@@ -57,24 +43,101 @@
             <input tal:replace="structure context/@@authenticator/authenticator" />
         </tal:block>
     </tal:block>
-    
-    <script type="text/javascript">
-    (function($) {
-      FB.ensureInit(function() {
-        FB.Connect.requireSession(function() {
-          FB.Facebook.apiClient.fql_query("SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid=" + FB.Connect.get_loggedInUser() + ")", function(rows) {
-            var pages = '<select name="form.page_id">';
-            var cur_page = $('#form\\.page_id').val();
-            $(rows).each(function(i, row) {
-              pages += '<option value="' + row.page_id + '"';
-              if (row.page_id == cur_page)
-                pages += ' selected';
-              pages += '>' + row.name + '<' + '/option>';
-            });
-            $(pages + '<' + '/select>').replaceAll('#form\\.page_id');
-          });
+        
+    <script type="text/javascript">    
+    (function ($) {
+        function simplesocial_setupChoices(session) {
+            var query_template = 'SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid={0})';
+            var pages = FB.Data.query(query_template, session.uid);
+            SimpleSocial.populateChoices('form.page_id', pages);
+        }
+        
+        function simplesocial_unsetupChoices() {
+            SimpleSocial.unpopulateChoices('form.page_id');
+        }
+        
+        var status = jq('<span id="fb-connection-status" class="checking"' + '>Checking...<' + '/span>');
+        status.css('margin-left', '10px');
+        jq('#form\\.app_id').after(status).blur(function () {
+            var app_id_str = jq('#form\\.app_id').val();
+            if (!app_id_str) {
+                status.attr('class', 'not-connected');
+                status.text('Not connected. Enter a Facebook application ID.');
+            } else {
+                SimpleSocial.settings.app_id = parseInt(app_id_str);
+                SimpleSocial.connect(function (response) {
+                    if (response.connected) {
+                        var app_name = response.display_name;
+                        status.attr('class', 'connected');
+                        status.html('Connected to <' + 'strong>' + app_name + '<' + '/strong>.');
+                        if (!SimpleSocial.queue.processed) {
+                            SimpleSocial.processQueue();
+                        }
+                    } else {
+                        status.attr('class', 'not-connected');
+                        status.text('Not connected. Invalid application ID.');
+                    }
+                });
+            }
         });
-      });
+        
+        SimpleSocial.queue.push(function () {
+            // Find the form fields that require login.
+            var fields = jq('#content form .field').not('#formfield-form-app_id').hide();
+            
+            // We only need to worry about login if we have more fields than
+            // just the application ID.
+            if (fields.length) {
+                // Set up the login button.
+                var login_block = jq('<'+ 'p' + '><' + '/p>');
+                var login_button = jq('<' + 'button' + '><' + '/button' + '>');
+                var login_instructions = jq('<span' + '><' + '/span>');
+                login_block.append(login_button, login_instructions).css('margin-top', '10px');
+                jq('#formfield-form-app_id').after(login_block);
+                
+                function simplesocial_updateLoginStatus(session) {
+                    if (session) {
+                        // The user logged in.
+                        fields.show();
+                        simplesocial_setupChoices(session);
+                        login_button.text('Logout of Facebook');
+                        login_instructions.text('');
+                        login_button.click(simplesocial_logout);
+                    } else {
+                        // The user logged out.
+                        simplesocial_unsetupChoices();
+                        login_button.text('Login to Facebook');
+                        login_instructions.text(' to continue configuring SimpleSocial.');
+                        login_button.click(simplesocial_login);
+                    }
+                }
+
+                function simplesocial_login() {
+                    FB.login(function (response) {
+                        simplesocial_updateLoginStatus(response.session);
+                    });
+                    return false;
+                }
+
+                function simplesocial_logout() {
+                    FB.logout(function(response) {
+                        simplesocial_updateLoginStatus(false);
+                    });
+                    return false;
+                }
+
+                simplesocial_updateLoginStatus(false);
+                
+                // Check to see if the user is already logged in.
+                FB.getLoginStatus(function (response) {
+                   simplesocial_updateLoginStatus(response.session);
+                });
+            }
+            
+            // Set the connection status.
+            jq('#form\\.app_id').blur();
+
+        });
     })(jQuery);
     </script>
 
