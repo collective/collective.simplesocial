@@ -4,6 +4,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Dropped support for Internet Explorer 6 because Facebook no longer
+  supports it.
+  [yomatters]
+
 - Fixed escaping bug in the feed form portlet's action title.
   [yomatters]
 

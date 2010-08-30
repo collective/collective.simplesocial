@@ -2,6 +2,10 @@
 <script type="text/javascript" tal:content="structure string:
   SimpleSocial.addSettings(${view/settings});
   window.fbAsyncInit = function() {
+    if (navigator.appVersion.indexOf('MSIE') != -1) {
+        version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+        if (version <= 6) return;
+    }
     SimpleSocial.connect(function(response) {
         if (response.connected) {
             SimpleSocial.processQueue();

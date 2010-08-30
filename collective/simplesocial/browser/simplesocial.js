@@ -61,7 +61,11 @@ var SimpleSocial = {
                         option.value = row[query.fields[0]];
                         option.text = row[query.fields[1]];
                         if (row[query.fields[0]] == current_value) option.selected = 'selected';
-                        choices.appendChild(option);
+                        try {
+                            choices.add(option, null);
+                        } catch(ex) {
+                            choices.add(option);
+                        }
                     }
                     el.parentNode.replaceChild(choices, el);
                 }
