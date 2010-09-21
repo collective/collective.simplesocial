@@ -1,3 +1,9 @@
+// Define the fb XML namespace for browsers that care (IE8).
+document.documentElement.setAttribute('xmlns:fb', 'http://www.facebook.com/2008/fbml');
+if (document.namespaces) {
+  document.namespaces.add('fb');
+}
+
 var SimpleSocial = {
     callbacks: {},
     connected: false,
