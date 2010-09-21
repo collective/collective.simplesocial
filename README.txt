@@ -31,8 +31,8 @@ Compatibility
 
 collective.simplesocial has been tested with Plone 3.x and Plone 4.0.
 
-It has been tested with Firefox 3.5, Safari 4, and IE 6, 7, and 8.
-
+It has been tested with Firefox 3.5, Safari 4, and Internet Explorer 7 and 8.
+Internet Explorer 6 is no longer supported.
 
 Creating a Facebook Application
 ===============================
