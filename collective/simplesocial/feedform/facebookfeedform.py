@@ -109,14 +109,6 @@ class IFacebookFeedForm(IPortletDataProvider):
         required = False,
         )
     
-    user_message = schema.TextLine(
-        title = _(u'User Message'),
-        description = _(u'This will be used as the default text for the user-editable '
-                        u'comment portion of the post.'),
-        required = False,
-        missing_value = u'',
-        )
-    
     action_link_text = schema.TextLine(
         title = _(u'Action Link Text'),
         description = _(u'Text of a link which will be shown after the feed post. Optional.'),
@@ -150,17 +142,16 @@ class Assignment(base.Assignment):
 
     implements(IFacebookFeedForm)
 
-    image_url = u''
-    image_link_href = u''
+    action_title = u'took an action.'
+    user_message_prompt = u'Please consider sharing with your friends.'
     action_link_text = u''
     action_link_href = u''
     availability = u'view'
 
-    def __init__(self, action_title, user_message_prompt, user_message, 
+    def __init__(self, action_title, user_message_prompt, 
                  action_link_text, action_link_href, availability):
         self.action_title = action_title
         self.user_message_prompt = user_message_prompt
-        self.user_message = user_message
         self.action_link_text = action_link_text
         self.action_link_href = action_link_href
         self.availability = availability
@@ -224,25 +215,18 @@ class Renderer(base.Renderer):
 
     @property
     def action_links(self):
-        out = '['
-        if self.data.action_link_text:
-            out += '{"text": "' + json_escape(self.data.action_link_text) + '"'
-            out += ', "href": "' + json_escape(self.data.action_link_href) + '"}'
-        out += ']'
-        return out
+        return [{
+            'text': json_escape(self.data.action_link_text),
+            'href': json_escape(self.data.action_link_href),
+        }]
 
     @property
     def user_message_prompt(self):
         return json_escape(self.data.user_message_prompt)
-    
-    @property
-    def user_message(self):
-        return json_escape(self.data.user_message)
-        
+
     def ui_options(self):
         return json_serialize({
             'method': 'stream.publish',
-            'user_message': self.user_message,
             'user_message_prompt': self.user_message_prompt,
             'action_links': self.action_links,
             'attachment': self.attachment,

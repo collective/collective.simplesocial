@@ -4,6 +4,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Removed user message option from feed form because Facebook no longer
+  supports it.
+  [yomatters]
+
 - Dropped support for Internet Explorer 6 because Facebook no longer
   supports it.
   [yomatters]
