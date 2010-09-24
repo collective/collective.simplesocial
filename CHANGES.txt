@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.5 (unreleased)
+----------------
+
+- Fixed position of modal dialogs in IE7 with the Sunburst theme.
+  [yomatters]
+
 1.4 (2010-09-21)
 ----------------
 

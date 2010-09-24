@@ -43,6 +43,12 @@
       />
       
   <browser:resource
+      name="simplesocial.css"
+      file="simplesocial.css"
+      layer=".interfaces.IBrowserLayer"
+      />
+      
+  <browser:resource
       name="simplesocial.js"
       file="simplesocial.js"
       layer=".interfaces.IBrowserLayer"

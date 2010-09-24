@@ -1,0 +1,4 @@
+/* Fix for modal dialogs in Sunburst on IE7 */
+#portal-top {
+    z-index: 10;
+}
