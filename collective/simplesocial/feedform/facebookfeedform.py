@@ -215,22 +215,27 @@ class Renderer(base.Renderer):
 
     @property
     def action_links(self):
-        return [{
-            'text': json_escape(self.data.action_link_text),
-            'href': json_escape(self.data.action_link_href),
-        }]
+        if self.data.action_link_text and self.data.action_link_href:
+            return [{
+                'text': json_escape(self.data.action_link_text),
+                'href': json_escape(self.data.action_link_href),
+            }]
+        return None
 
     @property
     def user_message_prompt(self):
         return json_escape(self.data.user_message_prompt)
 
     def ui_options(self):
-        return json_serialize({
+        options = {
             'method': 'stream.publish',
             'user_message_prompt': self.user_message_prompt,
-            'action_links': self.action_links,
             'attachment': self.attachment,
-        })
+        }
+        action_links = self.action_links
+        if action_links:
+            options['action_links'] = action_links
+        return json_serialize(options)
 
 class AddForm(base.AddForm):
     """Portlet add form.
