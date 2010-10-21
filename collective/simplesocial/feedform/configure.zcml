@@ -3,6 +3,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.simplesocial">
 
   <!-- make this show up in the quickinstaller separately -->
@@ -10,6 +11,10 @@
   
   <adapter for="*"
       factory=".facebookfeedform.DefaultFeedFormDataProvider" />
+      
+  <adapter zcml:condition="installed Products.PloneFormGen"
+      for="Products.PloneFormGen.interfaces.IPloneFormGenThanksPage"
+      factory=".dataproviders.ThanksPageDataProvider" />
   
   <genericsetup:registerProfile
       name="feedform"

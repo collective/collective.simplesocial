@@ -4,6 +4,13 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Added a a data provider for PloneFormGen thank you pages that pulls data
+  for the attachment from the form.
+  [yomatters]
+
+- Fixed an error related to missing action links.
+  [yomatters]
+
 - Fixed position of modal dialogs in IE7 with the Sunburst theme.
   [yomatters]
 
