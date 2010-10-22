@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Changed control panel form to use z3c.form.
+  [yomatters]
+
 - Added a a data provider for PloneFormGen thank you pages that pulls data
   for the attachment from the form.
   [yomatters]

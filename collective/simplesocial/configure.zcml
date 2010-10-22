@@ -5,6 +5,8 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.simplesocial">
 
+  <include package="plone.app.z3cform" />
+
   <include package=".browser" />
   <include package=".fanbox" />
   <include package=".feedform" />

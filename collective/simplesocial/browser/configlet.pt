@@ -37,29 +37,28 @@
             log into Facebook to complete the configuration.</li>
     </ul>
 
-    <tal:block metal:use-macro="context/base-pageform.html/index/macros/form">
-        <tal:block metal:fill-slot="authenticator"/>
-        <tal:block metal:fill-slot="above_buttons">
-            <input tal:replace="structure context/@@authenticator/authenticator" />
-        </tal:block>
-    </tal:block>
+    <tal:form replace="structure view/contents">
+        Form
+    </tal:form>
         
     <script type="text/javascript">    
     (function ($) {
         function simplesocial_setupChoices(session) {
             var query_template = 'SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid={0})';
             var pages = FB.Data.query(query_template, session.uid);
-            SimpleSocial.populateChoices('form.page_id', pages);
+            var el = document.getElementById('form-widgets-page_id');
+            SimpleSocial.populateChoices(el, pages);
         }
         
         function simplesocial_unsetupChoices() {
-            SimpleSocial.unpopulateChoices('form.page_id');
+            var el = document.getElementById('form-widgets-page_id');
+            SimpleSocial.unpopulateChoices(el);
         }
         
         var status = jq('<span id="fb-connection-status" class="checking"' + '>Checking...<' + '/span>');
         status.css('margin-left', '10px');
-        jq('#form\\.app_id').after(status).blur(function () {
-            var app_id_str = jq('#form\\.app_id').val();
+        jq('#form-widgets-app_id').after(status).blur(function () {
+            var app_id_str = jq('#form-widgets-app_id').val();
             if (!app_id_str) {
                 status.attr('class', 'not-connected');
                 status.text('Not connected. Enter a Facebook application ID.');
@@ -83,7 +82,7 @@
         
         SimpleSocial.queue.push(function () {
             // Find the form fields that require login.
-            var fields = jq('#content form .field').not('#formfield-form-app_id').hide();
+            var fields = jq('#content form .field').not('#formfield-form-widgets-app_id').hide();
             
             // We only need to worry about login if we have more fields than
             // just the application ID.
@@ -93,7 +92,7 @@
                 var login_button = jq('<' + 'button' + '><' + '/button' + '>');
                 var login_instructions = jq('<span' + '><' + '/span>');
                 login_block.append(login_button, login_instructions).css('margin-top', '10px');
-                jq('#formfield-form-app_id').after(login_block);
+                jq('#formfield-form-widgets-app_id').after(login_block);
                 
                 function simplesocial_updateLoginStatus(session) {
                     if (session) {
@@ -135,7 +134,7 @@
             }
             
             // Set the connection status.
-            jq('#form\\.app_id').blur();
+            jq('#form-widgets-app_id').blur();
 
         });
     })(jQuery);

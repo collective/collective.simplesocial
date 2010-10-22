@@ -15,7 +15,7 @@
   <browser:page
       name="facebook-settings"
       for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".configlet.FacebookSettingsForm"
+      class=".configlet.FacebookSettings"
       permission="cmf.ManagePortal"
       layer=".interfaces.IBrowserLayer"
       />
