@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Merged profiles to simplify upgrades.
+  [yomatters]
+
 - Changed control panel form to use z3c.form.
   [yomatters]
 

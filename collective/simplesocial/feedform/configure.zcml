@@ -5,9 +5,6 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.simplesocial">
-
-  <!-- make this show up in the quickinstaller separately -->
-  <five:registerPackage package="."/>
   
   <adapter for="*"
       factory=".facebookfeedform.DefaultFeedFormDataProvider" />
@@ -15,14 +12,6 @@
   <adapter zcml:condition="installed Products.PloneFormGen"
       for="Products.PloneFormGen.interfaces.IPloneFormGenThanksPage"
       factory=".dataproviders.ThanksPageDataProvider" />
-  
-  <genericsetup:registerProfile
-      name="feedform"
-      title="Facebook Feed Form portlet"
-      directory="../profiles/feedform"
-      description="Enables the Facebook feed form portlet."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
 
   <include package="plone.app.portlets"/>
   <plone:portlet

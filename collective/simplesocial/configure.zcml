@@ -21,9 +21,9 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="fbconnect"
-      title="Basic Facebook support"
+      title="Simple Social"
       directory="profiles/fbconnect"
-      description="Installs the basic pieces required for integrating with Facebook.  You must configure an application ID via the control panel after installation."
+      description="Tools for connecting your Plone site with Facebook."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
