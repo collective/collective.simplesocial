@@ -18,11 +18,35 @@ class IFacebookSettings(Interface):
 
     app_id = schema.TextLine(
         title = _(u'Application ID'),
-        description = _(u'Enter the application ID for your Facebook application.'),
+        description = _(u'Enter the application ID for your'
+            u' Facebook application.'),
+    )
+    
+    post_to_page_enabled = schema.Bool(
+        title = _(u"Allow site managers to post updates to a"
+            u" Facebook Page"),
+        default = True,
+        required = False,
     )
 
     page_id = schema.ASCIILine(
-        title = _(u'Fan Page'),
-        description = _(u"Select the fan page you want to post to."),
+        title = _(u'Page'),
+        description = _(u"Select the Facebook Page you want to post to."),
+        required = False,
+    )
+    
+    like_button_enabled = schema.Bool(
+        title = _(u"Display Like buttons on this site"),
+        default = True,
+        required = False,
+    )
+    
+    like_button_types = schema.List(
+        title = _(u'Content Types'),
+        description = _(u"Display Like buttons on these content types"
+            u" by default."),
+        value_type = schema.Choice(
+            vocabulary = 'plone.app.vocabularies.ReallyUserFriendlyTypes',
+        ),
         required = False,
     )
