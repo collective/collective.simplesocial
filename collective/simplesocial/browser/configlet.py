@@ -12,8 +12,6 @@ from collective.simplesocial.browser.interfaces import IFacebookSettingsForm, \
     IFacebookSettings
 from collective.simplesocial import simplesocialMessageFactory as _
 
-### THE ADAPTER IS NOT CREATING THE PROPERTIES IF THEY DON'T EXIST!!! ###
-
 class FacebookSettingsAdapter(object):
     implements(IFacebookSettings)
     adapts(ISiteRoot)
@@ -28,6 +26,12 @@ class FacebookSettingsAdapter(object):
     page_id = ProxyFieldProperty(IFacebookSettings['page_id'])
     like_button_enabled = ProxyFieldProperty(IFacebookSettings['like_button_enabled'])
     like_button_types = ProxyFieldProperty(IFacebookSettings['like_button_types'])
+    like_button_layout = ProxyFieldProperty(IFacebookSettings['like_button_layout'])
+    like_button_show_faces = ProxyFieldProperty(IFacebookSettings['like_button_show_faces'])
+    like_button_width = ProxyFieldProperty(IFacebookSettings['like_button_width'])
+    like_button_action = ProxyFieldProperty(IFacebookSettings['like_button_action'])
+    like_button_font = ProxyFieldProperty(IFacebookSettings['like_button_font'])
+    like_button_color_scheme = ProxyFieldProperty(IFacebookSettings['like_button_color_scheme'])
 
 class ApplicationGroup(group.Group):
     """
@@ -54,9 +58,12 @@ class LikeButtonGroup(group.Group):
     
     label = _(u'Like Button')
     fields = field.Fields(IFacebookSettings).select('like_button_enabled',
-        'like_button_types')
+        'like_button_types', 'like_button_layout', 'like_button_show_faces', 
+        'like_button_width', 'like_button_action', 'like_button_font', 
+        'like_button_color_scheme')
     fields['like_button_enabled'].widgetFactory = SingleCheckBoxFieldWidget
     fields['like_button_types'].widgetFactory = CheckBoxFieldWidget
+    fields['like_button_show_faces'].widgetFactory = SingleCheckBoxFieldWidget
 
 class FacebookSettingsForm(group.GroupForm, form.EditForm):
     """

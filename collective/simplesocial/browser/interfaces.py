@@ -1,5 +1,6 @@
 from zope.interface import Interface
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 from collective.simplesocial import simplesocialMessageFactory as _
 
 class IBrowserLayer(Interface):
@@ -26,7 +27,6 @@ class IFacebookSettings(Interface):
         title = _(u"Allow site managers to post updates to a"
             u" Facebook Page"),
         default = True,
-        required = False,
     )
 
     page_id = schema.ASCIILine(
@@ -38,7 +38,6 @@ class IFacebookSettings(Interface):
     like_button_enabled = schema.Bool(
         title = _(u"Display Like buttons on this site"),
         default = True,
-        required = False,
     )
     
     like_button_types = schema.List(
@@ -48,5 +47,59 @@ class IFacebookSettings(Interface):
         value_type = schema.Choice(
             vocabulary = 'plone.app.vocabularies.ReallyUserFriendlyTypes',
         ),
-        required = False,
+    )
+    
+    like_button_layout = schema.Choice(
+        title = _(u'Layout'),
+        vocabulary = SimpleVocabulary.fromItems([
+            (_(u'Standard'), u'standard'),
+            (_(u'Button Count'), u'button_count'),
+            (_(u'Box Count'), u'box_count'),
+        ]),
+        default = u'standard',
+    )
+    
+    like_button_show_faces = schema.Bool(
+        title = _(u"Show Faces"),
+        description = _(u"Display profile pictures beneath the Like button."),
+        default = True,
+    )
+    
+    like_button_width = schema.Int(
+        title = _(u'Width'),
+        description = _(u"Enter the width of the Like button area in pixels."),
+        default = 450,
+    )
+    
+    like_button_action = schema.Choice(
+        title = _(u'Action'),
+        description = _(u'Choose the verb to be displayed in the Like button.'),
+        vocabulary = SimpleVocabulary.fromItems([
+            (_(u'Like'), u'like'),
+            (_(u'Recommend'), u'recommend'),
+        ]),
+        default = u'like',
+    )
+    
+    like_button_font = schema.Choice(
+        title = _(u'Font'),
+        vocabulary = SimpleVocabulary.fromItems([
+            (_(u'Default'), u''),
+            (_(u'Arial'), u'arial'),
+            (_(u'Lucida Grande'), u'lucida grande'),
+            (_(u'Segoe UI'), u'segoe ui'),
+            (_(u'Tahoma'), u'tahoma'),
+            (_(u'Trebuchet MS'), u'trebuchet ms'),
+            (_(u'Verdana'), u'verdana'),
+        ]),
+        default = u'',
+    )
+    
+    like_button_color_scheme = schema.Choice(
+        title = _(u'Color Scheme'),
+        vocabulary = SimpleVocabulary.fromItems([
+            (_(u'Light'), u'light'),
+            (_(u'Dark'), u'dark'),
+        ]),
+        default = u'light',
     )

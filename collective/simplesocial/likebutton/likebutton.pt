@@ -1,0 +1,8 @@
+<tal:block tal:condition="view/available">
+    <fb:like tal:attributes="layout view/layout;
+        show_faces python:str(view.show_faces).lower();
+        width string:${view/width}px;
+        action view/action;
+        font view/font;
+        colorscheme view/color_scheme;"></fb:like>
+</tal:block>

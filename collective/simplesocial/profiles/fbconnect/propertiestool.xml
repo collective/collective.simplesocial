@@ -11,5 +11,11 @@
      <element value="Event"/>
      <element value="News Item"/>
    </property>
+   <property name="like_button_layout" type="string">standard</property>
+   <property name="like_button_show_faces" type="boolean">True</property>
+   <property name="like_button_width" type="int">450</property>
+   <property name="like_button_action" type="string">like</property>
+   <property name="like_button_font" type="string"></property>
+   <property name="like_button_color_scheme" type="string">light</property>
   </object>
 </object>

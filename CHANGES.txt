@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Added support for the Like button and Open Graph meta tags.
+  [yomatters]
+
 - Merged profiles to simplify upgrades.
   [yomatters]
 
