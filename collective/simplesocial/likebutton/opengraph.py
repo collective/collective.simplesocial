@@ -3,8 +3,10 @@ from zope.component import queryMultiAdapter
 from zope.interface import implements
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import common
+from collective.simplesocial.browser.interfaces import IFacebookSettings
 from collective.simplesocial.likebutton.interfaces import IOpenGraphProvider
-from collective.simplesocial.likebutton.likebutton import likebutton_enabled
+from collective.simplesocial.likebutton.likebutton import likebutton_enabled, \
+    likebutton_available
 
 class DefaultOpenGraphProvider(object):
     """
@@ -52,9 +54,9 @@ class OpenGraphViewlet(common.ViewletBase):
     index = ViewPageTemplateFile('opengraph.pt')
     
     def update(self):
-        self.available = likebutton_enabled(self.context)
-        if not self.available:
-            return
+        settings = IFacebookSettings(getSite())
+        self.available = likebutton_available(settings) and \
+            likebutton_enabled(self.context, settings)
             
         # First try to find an adapter with the same name as the content type.
         # Then fall back to a generic adapter.

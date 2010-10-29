@@ -23,7 +23,7 @@ class IFacebookSettings(Interface):
             u' Facebook application.'),
     )
     
-    post_to_page_enabled = schema.Bool(
+    post_to_page_available = schema.Bool(
         title = _(u"Allow site managers to post updates to a"
             u" Facebook Page"),
         default = True,
@@ -35,7 +35,7 @@ class IFacebookSettings(Interface):
         required = False,
     )
     
-    like_button_enabled = schema.Bool(
+    like_button_available = schema.Bool(
         title = _(u"Display Like buttons on this site"),
         default = True,
     )

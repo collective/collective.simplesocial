@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
+    
+  <include package="collective.autopermission" />
   
   <!-- snippet to initialize Facebook Connect -->
   <browser:viewlet
@@ -51,6 +53,12 @@
   <browser:resource
       name="simplesocial.js"
       file="simplesocial.js"
+      layer=".interfaces.IBrowserLayer"
+      />
+      
+  <browser:resource
+      name="facebook_icon.png"
+      file="facebook_icon.png"
       layer=".interfaces.IBrowserLayer"
       />
 
