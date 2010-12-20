@@ -28,7 +28,7 @@ class IFacebookFanBox(IPortletDataProvider):
     width = schema.Int(
         title = _(u'Width'),
         description = _(u'Enter the width of the box in pixels.'),
-        min = 200,
+        min = 0,
         default = 200,
         )
         

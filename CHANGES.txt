@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Removed width restriction on Like box because Facebook no longer enforces it.
+  [yomatters]
+
 - Updated Like box portlet options to match Facebook's options.
   [yomatters]
 
