@@ -4,6 +4,7 @@ from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 from zope.formlib import form
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -19,10 +20,9 @@ class IFacebookFanBox(IPortletDataProvider):
     same.
     """
 
-    profile_id = schema.TextLine(
-        title = _(u'Facebook Page ID'),
-        description = _(u'Enter the page ID. You can copy it from'
-            u' the end of the URL of the page on Facebook.'),
+    href = schema.TextLine(
+        title = _(u'Facebook Page URL'),
+        description = _(u'Enter the URL of the Facebook page.'),
         )
         
     width = schema.Int(
@@ -31,6 +31,15 @@ class IFacebookFanBox(IPortletDataProvider):
         min = 200,
         default = 200,
         )
+        
+    colorscheme = schema.Choice(
+        title = _(u'Color Scheme'),
+        vocabulary = SimpleVocabulary.fromItems([
+            (_(u'Light'), u'light'),
+            (_(u'Dark'), u'dark'),
+        ]),
+        default = u'light',
+    )
         
     connections = schema.Int(
         title = _(u'Connections'),
@@ -61,17 +70,19 @@ class Assignment(base.Assignment):
 
     implements(IFacebookFanBox)
     
-    profile_id = u''
+    href = u''
     width = 200
     connections = 10
+    colorscheme = u'light'
     show_stream = True
     show_header = True
 
-    def __init__(self, profile_id=u'', width=200, \
-        connections=10, show_stream=True, show_header=True):
-        self.profile_id = profile_id
+    def __init__(self, href=u'', width=200, connections=10, \
+        colorscheme=u'light', show_stream=True, show_header=True):
+        self.href = href
         self.width = width
         self.connections = connections
+        self.colorscheme = colorscheme
         self.show_stream = show_stream
         self.show_header = show_header
 

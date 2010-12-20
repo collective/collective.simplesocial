@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Updated Like box portlet options to match Facebook's options.
+  [yomatters]
+
 - Added a a data provider for PloneFormGen thank you pages that pulls data
   for the attachment from the form.
   [yomatters]
