@@ -10,6 +10,7 @@
             tal:condition="view/data/href"
             tal:attributes="href view/data/href;
                 width view/data/width;
+                height python:view.data.height or '';
                 connections view/data/connections;
                 colorscheme view/data/colorscheme;
                 stream python:str(view.data.show_stream).lower();

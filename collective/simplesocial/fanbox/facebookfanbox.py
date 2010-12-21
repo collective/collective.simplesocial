@@ -32,6 +32,14 @@ class IFacebookFanBox(IPortletDataProvider):
         default = 200,
         )
         
+    height = schema.Int(
+        title = _(u'Height'),
+        description = _(u'Enter the height of the box in pixels, or leave this'
+            u' field blank for automatic sizing.'),
+        min = 0,
+        required = False,
+        )
+        
     colorscheme = schema.Choice(
         title = _(u'Color Scheme'),
         vocabulary = SimpleVocabulary.fromItems([
@@ -72,15 +80,17 @@ class Assignment(base.Assignment):
     
     href = u''
     width = 200
+    height = None
     connections = 10
     colorscheme = u'light'
     show_stream = True
     show_header = True
 
-    def __init__(self, href=u'', width=200, connections=10, \
+    def __init__(self, href=u'', width=200, height=None, connections=10, \
         colorscheme=u'light', show_stream=True, show_header=True):
         self.href = href
         self.width = width
+        self.height = height
         self.connections = connections
         self.colorscheme = colorscheme
         self.show_stream = show_stream

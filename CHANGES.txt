@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Added height option to Like box portlet.
+  [yomatters]
+
 - Removed width restriction on Like box because Facebook no longer enforces it.
   [yomatters]
 
