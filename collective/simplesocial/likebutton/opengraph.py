@@ -33,13 +33,17 @@ class DefaultOpenGraphProvider(object):
         context_state = self.context.restrictedTraverse('@@plone_context_state')
         if context_state.is_portal_root():
             result['og:type'] = 'website'
+            portal = getSite()
+            result['og:title'] = portal.Title()
+            result['og:url'] = portal.absolute_url()
+            description = portal.Description()
+            
         else:
             result['og:type'] = 'article'
-        
-        result['og:title'] = self.context.Title()
-        result['og:url'] = self.context.absolute_url()
-        
-        description = self.context.Description()
+            result['og:title'] = self.context.Title()
+            result['og:url'] = self.context.absolute_url()
+            description = self.context.Description()
+
         if description:
             result['og:description'] = description
         
