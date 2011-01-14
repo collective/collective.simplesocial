@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
+    
+  <include package="collective.autopermission" />
   
   <!-- snippet to initialize Facebook Connect -->
   <browser:viewlet
@@ -15,7 +17,7 @@
   <browser:page
       name="facebook-settings"
       for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".configlet.FacebookSettingsForm"
+      class=".configlet.FacebookSettings"
       permission="cmf.ManagePortal"
       layer=".interfaces.IBrowserLayer"
       />
@@ -28,6 +30,9 @@
       permission="zope2.View"
       layer=".interfaces.IBrowserLayer"
       />
+      
+  <adapter for="*"
+      factory=".image.DefaultFacebookImage" />
       
   <browser:page
       name="facebook-thumbnail"
@@ -51,6 +56,12 @@
   <browser:resource
       name="simplesocial.js"
       file="simplesocial.js"
+      layer=".interfaces.IBrowserLayer"
+      />
+      
+  <browser:resource
+      name="facebook_icon.png"
+      file="facebook_icon.png"
       layer=".interfaces.IBrowserLayer"
       />
 

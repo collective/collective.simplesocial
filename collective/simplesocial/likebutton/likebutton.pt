@@ -1,0 +1,10 @@
+<tal:block tal:define="settings view/settings;"
+    tal:condition="view/available">
+    <fb:like tal:attributes="layout settings/like_button_layout;
+            show_faces python:str(settings.like_button_show_faces).lower();
+            width string:${settings/like_button_width}px;
+            action settings/like_button_action;
+            font settings/like_button_font;
+            colorscheme settings/like_button_color_scheme;
+            ref settings/like_button_ref;"></fb:like>
+</tal:block>

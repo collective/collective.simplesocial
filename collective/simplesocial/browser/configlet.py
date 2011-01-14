@@ -1,25 +1,16 @@
 from zope.component import adapts
-from zope.interface import Interface, implements
-from zope import schema
-from zope.formlib import form
-from plone.app.controlpanel.form import ControlPanelForm
+from zope.interface import implements
+from z3c.form import form, field, group
+from z3c.form.browser.checkbox import CheckBoxFieldWidget, \
+    SingleCheckBoxFieldWidget
+from plone.z3cform.layout import FormWrapper
+from Products.CMFDefault.formlib.schema import ProxyFieldProperty
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
+from collective.simplesocial.browser.interfaces import IFacebookSettingsForm, \
+    IFacebookSettings
 from collective.simplesocial import simplesocialMessageFactory as _
-
-class IFacebookSettings(Interface):
-    
-    app_id = schema.TextLine(
-        title = _(u'Application ID'),
-        description = _(u'Enter the application ID for your Facebook application.'),
-    )
-    
-    page_id = schema.ASCIILine(
-        title = _(u'Fan Page'),
-        description = _(u"Select the fan page you want to post to."),
-        required = False,
-    )
 
 class FacebookSettingsAdapter(object):
     implements(IFacebookSettings)
@@ -29,33 +20,63 @@ class FacebookSettingsAdapter(object):
         pprop = getToolByName(context, 'portal_properties')
         self.context = pprop.fb_properties
         self.encoding = pprop.site_properties.default_charset
+        
+    app_id = ProxyFieldProperty(IFacebookSettings['app_id'])
+    post_to_page_available = ProxyFieldProperty(IFacebookSettings['post_to_page_available'])
+    page_id = ProxyFieldProperty(IFacebookSettings['page_id'])
+    like_button_available = ProxyFieldProperty(IFacebookSettings['like_button_available'])
+    like_button_types = ProxyFieldProperty(IFacebookSettings['like_button_types'])
+    like_button_layout = ProxyFieldProperty(IFacebookSettings['like_button_layout'])
+    like_button_show_faces = ProxyFieldProperty(IFacebookSettings['like_button_show_faces'])
+    like_button_width = ProxyFieldProperty(IFacebookSettings['like_button_width'])
+    like_button_action = ProxyFieldProperty(IFacebookSettings['like_button_action'])
+    like_button_font = ProxyFieldProperty(IFacebookSettings['like_button_font'])
+    like_button_color_scheme = ProxyFieldProperty(IFacebookSettings['like_button_color_scheme'])
+    like_button_ref = ProxyFieldProperty(IFacebookSettings['like_button_ref'])
 
-    def get_app_id(self):
-        return self.context.getProperty('app_id')
-    def set_app_id(self, value):
-        if self.context.hasProperty('app_id'):
-            self.context._updateProperty('app_id', value)
-        else:
-            self.context._setProperty('app_id', value)
-    app_id = property(get_app_id, set_app_id)
-
-    def get_page_id(self):
-        return self.context.getProperty('page_id')
-    def set_page_id(self, value):
-        if self.context.hasProperty('page_id'):
-            self.context._updateProperty('page_id', value)
-        else:
-            self.context._setProperty('page_id', value)
-    page_id = property(get_page_id, set_page_id)
-
-class FacebookSettingsForm(ControlPanelForm):
-    template = ViewPageTemplateFile('configlet.pt')
-    form_name = _(u'Facebook Configuration')
+class ApplicationGroup(group.Group):
+    """
+    Fieldset for application settings.
+    """
     
-    @property
-    def form_fields(self):
-        form_fields = form.FormFields(IFacebookSettings)
-        qi = getToolByName(self.context, 'portal_quickinstaller')
-        if not qi.isProductInstalled('collective.simplesocial.fanpage_post'):
-            form_fields = form_fields.omit('page_id')
-        return form_fields
+    label = _(u'Application')
+    fields = field.Fields(IFacebookSettings).select('app_id')
+    
+class PostToPageGroup(group.Group):
+    """
+    Fieldset for post-to-page settings.
+    """
+
+    label = _(u'Post to Page')
+    fields = field.Fields(IFacebookSettings).select('post_to_page_available',
+        'page_id')
+    fields['post_to_page_available'].widgetFactory = SingleCheckBoxFieldWidget
+    
+class LikeButtonGroup(group.Group):
+    """
+    Fieldset for Like button settings.
+    """
+    
+    label = _(u'Like Button')
+    fields = field.Fields(IFacebookSettings).select('like_button_available',
+        'like_button_types', 'like_button_layout', 'like_button_show_faces', 
+        'like_button_width', 'like_button_action', 'like_button_font', 
+        'like_button_color_scheme', 'like_button_ref')
+    fields['like_button_available'].widgetFactory = SingleCheckBoxFieldWidget
+    fields['like_button_types'].widgetFactory = CheckBoxFieldWidget
+    fields['like_button_show_faces'].widgetFactory = SingleCheckBoxFieldWidget
+
+class FacebookSettingsForm(group.GroupForm, form.EditForm):
+    """
+    Form for the campaign configlet.
+    """
+    
+    label = _(u'Facebook Configuration')
+    groups = (ApplicationGroup, PostToPageGroup, LikeButtonGroup,)
+
+class FacebookSettings(FormWrapper):
+    
+    implements(IFacebookSettingsForm)
+    
+    index = ViewPageTemplateFile('configlet.pt')
+    form = FacebookSettingsForm

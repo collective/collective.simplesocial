@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.simplesocial">
+    
+    <permission
+        id="collective.simplesocial.ToggleLikeButton"
+        title="collective.simplesocial: Toggle Like Button"
+        />
+    
+    <adapter for="* ..browser.interfaces.IBrowserLayer" 
+      factory=".opengraph.DefaultOpenGraphProvider" />
+        
+    <browser:page
+      name="toggle_like_button"
+      for="*"
+      class=".likebutton.ToggleLikeButton"
+      allowed_attributes="can_enable can_disable"
+      permission="collective.simplesocial.ToggleLikeButton"
+      layer="..browser.interfaces.IBrowserLayer" />
+
+    <browser:viewlet
+      name="collective.simplesocial.likebutton"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+      class=".likebutton.LikeButtonViewlet"
+      permission="zope2.View"
+		  layer="..browser.interfaces.IBrowserLayer"
+		  view="plone.app.layout.globals.interfaces.IViewView"
+      />
+      
+    <browser:viewlet
+      name="collective.simplesocial.opengraph"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      class=".opengraph.OpenGraphViewlet"
+      permission="zope2.View"
+		  layer="..browser.interfaces.IBrowserLayer"
+		  view="plone.app.layout.globals.interfaces.IViewView"
+      />
+
+</configure>

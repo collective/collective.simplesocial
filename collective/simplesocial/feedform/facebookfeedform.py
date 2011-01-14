@@ -1,6 +1,4 @@
-from zExceptions import NotFound
 from zope.interface import Interface, implements
-from zope.app.component.hooks import getSite
 from zope.schema.vocabulary import SimpleVocabulary
 
 from plone.app.portlets.portlets import base
@@ -13,6 +11,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.simplesocial import simplesocialMessageFactory as _
+from collective.simplesocial.browser.interfaces import IFacebookImage
 from collective.simplesocial.utils import json_escape, json_serialize
 
 class IFeedFormDataProvider(Interface):
@@ -61,29 +60,20 @@ class DefaultFeedFormDataProvider(object):
             'name': self.context.Title(),
             'href': self.context.absolute_url(),
         }
+        
         if hasattr(self.context, 'Description') and self.context.Description():
             result.update({'description': ' '.join(self.context.Description().split())})
-        try:
-            self.context.restrictedTraverse('image_tile')
+        
+        image_provider = IFacebookImage(self.context)
+        image_url = image_provider.getURL(scale='tile')
+        if image_url:
             result.update({
                 'media': [{
                     'type': 'image',
-                    'src': self.context.absolute_url() + '/image_tile',
+                    'src': image_url,
                     'href': self.context.absolute_url(),
                 }]
             })
-        except (AttributeError, KeyError, NotFound):
-            portal = getSite()
-            base_props = portal.restrictedTraverse('base_properties')
-            logo_name = getattr(base_props, 'logoName', None)
-            if logo_name:
-                result.update({
-                    'media': [{
-                        'type': 'image',
-                        'src': '/'.join([portal.absolute_url(), logo_name, '@@facebook-thumbnail']),
-                        'href': self.context.absolute_url(),
-                    }]
-                })
         return result
 
 class IFacebookFeedForm(IPortletDataProvider):

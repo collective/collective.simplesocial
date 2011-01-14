@@ -50,16 +50,16 @@ var SimpleSocial = {
             }
         }
     },
-    populateChoices: function (element_id, query) {
-        // populateChoices replaces a text input of given ID with a dropdown
+    populateChoices: function (el, query) {
+        // populateChoices replaces a text input with a dropdown
         // list of choices from Facebook. The list of choices comes from a
         // FB.query that includes two rows: the key and the value.
-        var el = document.getElementById(element_id);
         if (el) {
             FB.Data.waitOn([query], function(args) {
                 if (query.value.length && query.fields.length == 2) {
                     var choices = document.createElement('select');
-                    choices.id = choices.name = element_id;
+                    choices.id = el.id;
+                    choices.name = el.name;
                     var current_value = el.value;
                     for (i=0; i<query.value.length; i++) {
                         var row = query.value[i];
@@ -78,13 +78,13 @@ var SimpleSocial = {
             });
         }
     },
-    unpopulateChoices: function (element_id) {
+    unpopulateChoices: function (el) {
         // Undo the changes made by populateChoices (i.e. make this field
         // back into a text input).
-        var el = document.getElementById(element_id);
         if (el && el.tagName == 'SELECT') {
             var input = document.createElement('input');
-            input.id = input.name = element_id;
+            input.id = el.id;
+            input.name = el.name;
             input.value = el.childNodes[el.selectedIndex].value;
             el.parentNode.replaceChild(input, el);
         }

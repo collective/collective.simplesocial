@@ -1,0 +1,6 @@
+<tal:block tal:condition="view/available">
+    <meta tal:repeat="item view/og_properties/items"
+        tal:attributes="property python:item[0];
+            content python:item[1];"
+        property="" content="" />
+</tal:block>

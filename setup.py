@@ -40,6 +40,8 @@ setup(name='collective.simplesocial',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
+                        'collective.autopermission',
+                        'plone.app.z3cform',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,

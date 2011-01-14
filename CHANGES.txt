@@ -4,6 +4,22 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Added an adapter for looking up the image that gets sent to Facebook to make
+  it more easily customizable.
+  [yomatters]
+
+- Added ref attribute to Like button.
+  [yomatters]
+
+- Added support for the Like button and Open Graph meta tags.
+  [yomatters]
+
+- Merged profiles to simplify upgrades.
+  [yomatters]
+
+- Changed control panel form to use z3c.form.
+  [yomatters]
+
 - Added height option to Like box portlet.
   [yomatters]
 

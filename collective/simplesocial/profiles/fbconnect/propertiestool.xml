@@ -1,6 +1,22 @@
 <?xml version="1.0"?>
 <object name="portal_properties" meta_type="Plone Properties Tool">
- <object name="fb_properties" meta_type="Plone Property Sheet">
-  <property name="title">Facebook properties</property>
- </object>
+  <object name="fb_properties" meta_type="Plone Property Sheet">
+   <property name="title">Facebook properties</property>
+   <property name="app_id" type="string"></property>
+   <property name="post_to_page_available" type="boolean">True</property>
+   <property name="page_id" type="string"></property>
+   <property name="like_button_available" type="boolean">True</property>
+   <property name="like_button_types" type="lines">
+     <element value="Document"/>
+     <element value="Event"/>
+     <element value="News Item"/>
+   </property>
+   <property name="like_button_layout" type="string">standard</property>
+   <property name="like_button_show_faces" type="boolean">True</property>
+   <property name="like_button_width" type="int">450</property>
+   <property name="like_button_action" type="string">like</property>
+   <property name="like_button_font" type="string"></property>
+   <property name="like_button_color_scheme" type="string">light</property>
+   <property name="like_button_ref" type="string"></property>
+  </object>
 </object>

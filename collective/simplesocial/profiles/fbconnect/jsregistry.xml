@@ -3,4 +3,8 @@
  <javascript cacheable="True" compression="safe"
     conditionalcomment="" cookable="True" enabled="on"
     expression="" id="++resource++simplesocial.js" inline="False"/>
+  <javascript cacheable="True" compression="safe"
+    conditionalcomment="" cookable="True" enabled="on"
+    expression="python:context.portal_membership.checkPermission('simplesocial: Post to fan page', context)"
+    id="++resource++simplesocial_fanpage_post.js" inline="False"/>
 </object>

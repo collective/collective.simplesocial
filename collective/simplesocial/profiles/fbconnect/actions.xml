@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <object name="object_buttons" meta_type="CMF Action Category">
+  <object name="likebutton_enable" meta_type="CMF Action"
+     i18n:domain="collective.simplesocial">
+   <property name="title" i18n:translate="">Show Like Button</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@toggle_like_button?enable=1</property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@toggle_like_button/can_enable</property>
+   <property name="permissions">
+    <element value="collective.simplesocial: Toggle Like Button"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  <object name="likebutton_disable" meta_type="CMF Action"
+     i18n:domain="collective.simplesocial">
+   <property name="title" i18n:translate="">Hide Like Button</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${object/absolute_url}/@@toggle_like_button</property>
+   <property name="icon_expr"></property>
+   <property
+      name="available_expr">object/@@toggle_like_button/can_disable</property>
+   <property name="permissions">
+    <element value="collective.simplesocial: Toggle Like Button"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+</object>

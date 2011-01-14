@@ -1,6 +1,6 @@
 (function($){
   $(function() {
-    if (!SimpleSocial.settings.page_id) return;
+    if (!(SimpleSocial.settings.page_id && SimpleSocial.settings.post_to_page_available)) return;
       
     var docac = $('.documentActions ul');
     if (!docac.length) {
