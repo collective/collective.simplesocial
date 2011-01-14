@@ -27,17 +27,21 @@ class DefaultOpenGraphProvider(object):
         (e.g. "og:title") to values.
         """
         
+        result = {}
+        
         # Set the type of object.
         context_state = self.context.restrictedTraverse('@@plone_context_state')
-        og_type = 'article'
         if context_state.is_portal_root():
-            og_type = 'website'
-            
-        result = {
-            'og:title': self.context.Title(),
-            'og:type': og_type,
-            'og:url': self.context.absolute_url(),
-        }
+            result['og:type'] = 'website'
+        else:
+            result['og:type'] = 'article'
+        
+        result['og:title'] = self.context.Title()
+        result['og:url'] = self.context.absolute_url()
+        
+        description = self.context.Description()
+        if description:
+            result['og:description'] = description
         
         image_provider = IFacebookImage(self.context)
         image_url = image_provider.getURL(scale='preview')
