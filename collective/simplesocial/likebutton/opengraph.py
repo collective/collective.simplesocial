@@ -54,7 +54,8 @@ class OpenGraphViewlet(common.ViewletBase):
     index = ViewPageTemplateFile('opengraph.pt')
     
     def update(self):
-        settings = IFacebookSettings(getSite())
+        portal = getSite()
+        settings = IFacebookSettings(portal)
         self.available = likebutton_available(settings) and \
             likebutton_enabled(self.context, settings)
             
@@ -68,6 +69,8 @@ class OpenGraphViewlet(common.ViewletBase):
             )
             if adapter:
                 self.og_properties = adapter.getProperties()
+                self.og_properties['og:site_name'] = portal.Title()
+                self.og_properties['fb:app_id'] = settings.app_id
                 return
             
         # We haven't found an adapter, so the viewlet should not be displayed.
