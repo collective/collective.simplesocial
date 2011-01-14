@@ -14,17 +14,11 @@ The goals of this Plone add-on product are to:
 
 Current features include:
 
-* Basic Facebook integration
-* Like Box portlet
-* Feed Form portlet
-* Post to Facebook Fan Page
-
-(Each feature appears separately in the quick installer and Add/Remove Products
-control panel.)
-
-To see a demonstration of the feed form portlet in use, watch the `screencast`_.
-
-.. _`screencast`: http://screencast.com/t/jiMl7nQrN
+* `Like Button`_
+* `Like Box Portlet`_
+* `Feed Form Portlet`_
+* `Post to Facebook Fan Page`_
+* `Custom Facebook Connect Integration`_
 
 Compatibility
 =============
@@ -46,13 +40,75 @@ a Facebook application. To do so, follow these steps:
 3. Take note of the `Application ID` that is displayed.
 4. In the Facebook application's settings, click on the `Connect` tab.
    Enter the URL of the site into the `Connect URL` field.
+5. Return to your Plone site, and enter the Facebook application ID in the
+   Facebook Settings control panel. Then use the provided button to log into
+   Facebook and connect with your Facebook application.
    
 .. _`Facebook Developer application`: http://www.facebook.com/developers/
+
+Like Button
+===========
+
+A Facebook `Like button`_ allows visitors to establish a lasting connection
+between their Facebook profile and a piece of content on your site.
+
+.. _`Like button`: http://developers.facebook.com/docs/reference/plugins/like
+
+Prerequisites
+-------------
+
+To add Like buttons to your site, first follow the instructions for `Creating a
+Facebook Application`_ above.
+
+Adding Like Buttons
+-------------------
+
+1. Go to the Facebook Settings control panel in your Plone site.
+2. Log into Facebook using the provided button if you have not done so already.
+3. On the Like Button tab, make sure that "Display Like buttons on this site"
+   is checked.
+4. Choose the content types where you want Like buttons to appear by default.
+5. Set the display options for your Like buttons.
+6. Save your settings.
+
+Enabling and Disabling Like Buttons
+-----------------------------------
+
+In addition to choosing the content types where Like buttons will be displayed,
+you can also turn the Like button on or off for a particular piece of content.
+To do so, browse to the content item, and select "Show Like Button" or "Hide
+Like Button" from the Actions menu.
+
+Customizing Open Graph Metadata
+-------------------------------
+
+To find out about the piece of content that is being liked, Facebook reads
+metadata from Open Graph tags in the head of the page. By default, Simple
+Social provides metadata based on these fields:
+
+* The title of the content item
+* The URL of the content item
+* The content item's description, if it provides one
+* The content item's preview image, if it provides one, or the site logo
+* The site name
+* The Facebook application ID
+
+All content items other than the site's home page are listed as type "article."
+The site's home page is listed as type "website."
+
+The Open Graph metadata can be customized on a per-content type basis by
+registering an adapter that provides
+collective.simplesocial.likebutton.interfaces.IOpenGraphProvider for the
+content type's interface. In cases where more than one content type provides
+the same interface, the adapter can be named to match the desired portal type.
+For an example, see the default implementation in
+collective.simplesocial.likebutton.opengraph.DefaultOpenGraphProvider.
+
 
 Like Box Portlet
 ================
 
-Facebook provides a basic "`Like Box`_" widget which can be used to promote
+Facebook provides a basic `Like Box`_ widget which can be used to promote
 a Facebook Page by prompting visitors to your website to like the Page and
 allowing them to view the Page's activity stream and fans.
 collective.simplesocial allows insertion of a Like Box as a portlet.
@@ -102,6 +158,10 @@ a message to his or her Facebook feed.  This can be used to prompt a visitor to
 your Plone site to publicize some action that they took on the site.  For
 example, you could add this portlet to the thank you page of a PloneFormGen
 form, asking the user to tell his or her friends about the site.
+
+To see a demonstration of the feed form portlet in use, watch the `screencast`_.
+
+.. _`screencast`: http://screencast.com/t/jiMl7nQrN
 
 Prerequisites
 -------------
@@ -216,7 +276,7 @@ able to use XFBML wherever you like in Plone templates. You can also
 make use of the Facebook Javascript API. (See the example below for
 correct usage.)
 
-Miscellaneous tips
+Miscellaneous Tips
 ------------------
 
 * The TAL parser likes to complain about mismatched tags when using tags with
