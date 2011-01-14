@@ -103,3 +103,12 @@ class IFacebookSettings(Interface):
         ]),
         default = u'light',
     )
+    
+    like_button_ref = schema.ASCIILine(
+        title = _(u'Referral Label'),
+        max_length = 49,
+        description = _(u'To track referrals from Facebook, enter the value'
+            u' that will be used for the fb_ref parameter.'),
+        required = False,
+    )
+    

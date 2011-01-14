@@ -17,5 +17,6 @@
    <property name="like_button_action" type="string">like</property>
    <property name="like_button_font" type="string"></property>
    <property name="like_button_color_scheme" type="string">light</property>
+   <property name="like_button_ref" type="string"></property>
   </object>
 </object>

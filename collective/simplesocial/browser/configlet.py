@@ -32,6 +32,7 @@ class FacebookSettingsAdapter(object):
     like_button_action = ProxyFieldProperty(IFacebookSettings['like_button_action'])
     like_button_font = ProxyFieldProperty(IFacebookSettings['like_button_font'])
     like_button_color_scheme = ProxyFieldProperty(IFacebookSettings['like_button_color_scheme'])
+    like_button_ref = ProxyFieldProperty(IFacebookSettings['like_button_ref'])
 
 class ApplicationGroup(group.Group):
     """
@@ -60,7 +61,7 @@ class LikeButtonGroup(group.Group):
     fields = field.Fields(IFacebookSettings).select('like_button_available',
         'like_button_types', 'like_button_layout', 'like_button_show_faces', 
         'like_button_width', 'like_button_action', 'like_button_font', 
-        'like_button_color_scheme')
+        'like_button_color_scheme', 'like_button_ref')
     fields['like_button_available'].widgetFactory = SingleCheckBoxFieldWidget
     fields['like_button_types'].widgetFactory = CheckBoxFieldWidget
     fields['like_button_show_faces'].widgetFactory = SingleCheckBoxFieldWidget

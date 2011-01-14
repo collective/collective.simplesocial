@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Added ref attribute to like button.
+  [yomatters]
+
 - Added support for the Like button and Open Graph meta tags.
   [yomatters]
 
