@@ -4,7 +4,11 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Added ref attribute to like button.
+- Added an adapter for looking up the image that gets sent to Facebook to make
+  it more easily customizable.
+  [yomatters]
+
+- Added ref attribute to Like button.
   [yomatters]
 
 - Added support for the Like button and Open Graph meta tags.

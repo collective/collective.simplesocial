@@ -15,6 +15,16 @@ class IFacebookSettingsForm(Interface):
     make sure we have a valid application ID.
     """
 
+class IFacebookImage(Interface):
+    """
+    Retrieves the Facebook image for the object, or the default image.
+    """
+    
+    def getURL(scale):
+        """
+        Returns the URL of the scaled image.
+        """
+
 class IFacebookSettings(Interface):
 
     app_id = schema.TextLine(

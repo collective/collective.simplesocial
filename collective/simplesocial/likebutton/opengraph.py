@@ -3,7 +3,8 @@ from zope.component import queryMultiAdapter
 from zope.interface import implements
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import common
-from collective.simplesocial.browser.interfaces import IFacebookSettings
+from collective.simplesocial.browser.interfaces import IFacebookSettings, \
+    IFacebookImage
 from collective.simplesocial.likebutton.interfaces import IOpenGraphProvider
 from collective.simplesocial.likebutton.likebutton import likebutton_enabled, \
     likebutton_available
@@ -26,25 +27,24 @@ class DefaultOpenGraphProvider(object):
         (e.g. "og:title") to values.
         """
         
-        # Get the name of the logo image from base_properties.
-        portal = getSite()
-        base_props = portal.restrictedTraverse('base_properties')
-        logo_name = getattr(base_props, 'logoName', None)
-        og_image = '/'.join([portal.absolute_url(), logo_name, 
-            '@@facebook-thumbnail'])
-        
         # Set the type of object.
         context_state = self.context.restrictedTraverse('@@plone_context_state')
         og_type = 'article'
         if context_state.is_portal_root():
             og_type = 'website'
-        
-        return {
+            
+        result = {
             'og:title': self.context.Title(),
             'og:type': og_type,
-            'og:image': og_image,
             'og:url': self.context.absolute_url(),
         }
+        
+        image_provider = IFacebookImage(self.context)
+        image_url = image_provider.getURL(scale='preview')
+        if image_url:
+            result['og:image'] = image_url
+        
+        return result
 
 class OpenGraphViewlet(common.ViewletBase):
     """

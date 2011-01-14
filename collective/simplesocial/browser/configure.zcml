@@ -31,6 +31,9 @@
       layer=".interfaces.IBrowserLayer"
       />
       
+  <adapter for="*"
+      factory=".image.DefaultFacebookImage" />
+      
   <browser:page
       name="facebook-thumbnail"
       for="OFS.Image.Image"
