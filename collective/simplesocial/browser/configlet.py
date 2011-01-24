@@ -4,13 +4,34 @@ from z3c.form import form, field, group
 from z3c.form.browser.checkbox import CheckBoxFieldWidget, \
     SingleCheckBoxFieldWidget
 from plone.z3cform.layout import FormWrapper
-from Products.CMFDefault.formlib.schema import ProxyFieldProperty
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from collective.simplesocial.browser.interfaces import IFacebookSettingsForm, \
     IFacebookSettings
 from collective.simplesocial import simplesocialMessageFactory as _
+
+class PropertySheetProperty(object):
+    """
+    Gets and sets a value on a property sheet based on a schema field.
+    """
+    
+    def __init__(self, field, prop_type):
+        self._field = field
+        self._prop_type = prop_type
+        
+    def __get__(self, instance, owner):
+        return instance.context.getProperty(self._field.__name__,
+            getattr(self._field, 'default', None))
+        
+    def __set__(self, instance, value):
+        if self._prop_type == 'string' and value is None:
+            value = u''
+        if instance.context.hasProperty(self._field.__name__):
+            instance.context.manage_changeProperties(**{self._field.__name__: value})
+        else:
+            instance.context.manage_addProperty(self._field.__name__, value,
+                self._prop_type)
 
 class FacebookSettingsAdapter(object):
     implements(IFacebookSettings)
@@ -21,18 +42,18 @@ class FacebookSettingsAdapter(object):
         self.context = pprop.fb_properties
         self.encoding = pprop.site_properties.default_charset
         
-    app_id = ProxyFieldProperty(IFacebookSettings['app_id'])
-    post_to_page_available = ProxyFieldProperty(IFacebookSettings['post_to_page_available'])
-    page_id = ProxyFieldProperty(IFacebookSettings['page_id'])
-    like_button_available = ProxyFieldProperty(IFacebookSettings['like_button_available'])
-    like_button_types = ProxyFieldProperty(IFacebookSettings['like_button_types'])
-    like_button_layout = ProxyFieldProperty(IFacebookSettings['like_button_layout'])
-    like_button_show_faces = ProxyFieldProperty(IFacebookSettings['like_button_show_faces'])
-    like_button_width = ProxyFieldProperty(IFacebookSettings['like_button_width'])
-    like_button_action = ProxyFieldProperty(IFacebookSettings['like_button_action'])
-    like_button_font = ProxyFieldProperty(IFacebookSettings['like_button_font'])
-    like_button_color_scheme = ProxyFieldProperty(IFacebookSettings['like_button_color_scheme'])
-    like_button_ref = ProxyFieldProperty(IFacebookSettings['like_button_ref'])
+    app_id = PropertySheetProperty(IFacebookSettings['app_id'], 'string')
+    post_to_page_available = PropertySheetProperty(IFacebookSettings['post_to_page_available'], 'boolean')
+    page_id = PropertySheetProperty(IFacebookSettings['page_id'], 'string')
+    like_button_available = PropertySheetProperty(IFacebookSettings['like_button_available'], 'boolean')
+    like_button_types = PropertySheetProperty(IFacebookSettings['like_button_types'], 'lines')
+    like_button_layout = PropertySheetProperty(IFacebookSettings['like_button_layout'], 'string')
+    like_button_show_faces = PropertySheetProperty(IFacebookSettings['like_button_show_faces'], 'boolean')
+    like_button_width = PropertySheetProperty(IFacebookSettings['like_button_width'], 'int')
+    like_button_action = PropertySheetProperty(IFacebookSettings['like_button_action'], 'string')
+    like_button_font = PropertySheetProperty(IFacebookSettings['like_button_font'], 'string')
+    like_button_color_scheme = PropertySheetProperty(IFacebookSettings['like_button_color_scheme'], 'string')
+    like_button_ref = PropertySheetProperty(IFacebookSettings['like_button_ref'], 'string')
 
 class ApplicationGroup(group.Group):
     """

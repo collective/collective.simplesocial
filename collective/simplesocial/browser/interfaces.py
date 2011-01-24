@@ -57,6 +57,7 @@ class IFacebookSettings(Interface):
         value_type = schema.Choice(
             vocabulary = 'plone.app.vocabularies.ReallyUserFriendlyTypes',
         ),
+        default=['Document', 'Event', 'News Item'],
     )
     
     like_button_layout = schema.Choice(
