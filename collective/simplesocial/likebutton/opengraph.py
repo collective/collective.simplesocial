@@ -31,6 +31,9 @@ class DefaultOpenGraphProvider(object):
         
         # Set the type of object.
         context_state = self.context.restrictedTraverse('@@plone_context_state')
+        portal = getSite()
+        settings = IFacebookSettings(portal)
+        
         if context_state.is_portal_root():
             result['og:type'] = 'website'
             portal = getSite()
@@ -51,6 +54,9 @@ class DefaultOpenGraphProvider(object):
         image_url = image_provider.getURL(scale='preview')
         if image_url:
             result['og:image'] = image_url
+            
+        result['og:site_name'] = portal.Title()
+        result['fb:app_id'] = settings.app_id
         
         return result
 
@@ -77,8 +83,6 @@ class OpenGraphViewlet(common.ViewletBase):
             )
             if adapter:
                 self.og_properties = adapter.getProperties()
-                self.og_properties['og:site_name'] = portal.Title()
-                self.og_properties['fb:app_id'] = settings.app_id
                 return
             
         # We haven't found an adapter, so the viewlet should not be displayed.
