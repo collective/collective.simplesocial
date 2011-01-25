@@ -63,13 +63,14 @@ Facebook Application`_ above.
 Adding Like Buttons
 -------------------
 
-1. Go to the Facebook Settings control panel in your Plone site.
-2. Log into Facebook using the provided button if you have not done so already.
-3. On the Like Button tab, make sure that "Display Like buttons on this site"
+1. Go to Site Setup.
+2. Click Facebook Settings.
+3. Log into Facebook using the provided button if you have not done so already.
+4. On the Like Button tab, make sure that "Display Like buttons on this site"
    is checked.
-4. Choose the content types where you want Like buttons to appear by default.
-5. Set the display options for your Like buttons.
-6. Save your settings.
+5. Choose the content types where you want Like buttons to appear by default.
+6. Set the display options for your Like buttons.
+7. Save your settings.
 
 Enabling and Disabling Like Buttons
 -----------------------------------
@@ -222,15 +223,11 @@ Configuring the 'Post to Fan Page' feature
 ------------------------------------------
 
 1. Go to Site Setup.
-2. Click `Add/Remove Products`.
-3. Check 'Post to Facebook Fan Page' and click Install.
-4. Return to Site Setup.
-5. Click `Facebook Settings`.
-6. Paste in the Application ID that you recorded when creating your Facebook
-   application.
-7. If prompted, log into Faceboook to see a list of Facebook pages for which
-   you are an administrator.
-8. Select the Facebook fan page you want to post to. Click Save.
+2. Click Facebook Settings.
+3. Log into Facebook using the provided button if you have not done so already.
+4. On the Post to Page tab, make sure that "Allow site managers to post updates
+   to a Facebook Page" is checked.
+5. Select the Facebook page you want to post to. Click Save.
 
 Now the 'Post to Fan Page' link should show up when you are logged in. To post
 to Facebook, click on the link.  You will be prompted to confirm the message
@@ -241,12 +238,7 @@ Custom Facebook Connect Integration
 ===================================
 
 This product provides the basic pieces needed to integrate with Facebook using
-custom `XFBML`_ and/or the `Facebook JavaScript SDK`_.  It is possible to
-install these basic components without installing any of the above features
-by selecting and installing `Basic Facebook support` from the Add/Remove
-Products control panel.
-
-This will install:
+custom `XFBML`_ and/or the `Facebook JavaScript SDK`_. These include:
 
 * The Facebook Settings control panel for configuring your application ID.
 * The SimpleSocial javascript library, which wraps some of the most common
