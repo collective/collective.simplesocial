@@ -164,20 +164,13 @@ section on `Creating a Facebook Application`_.
 Adding a Feed Form
 ------------------
 
-1. Go to Site Setup.
-2. Click `Add/Remove Products`.
-3. Check 'Facebook Feed Form portlet' and click Install.
-4. Return to Site Setup.
-5. Click `Facebook Settings`.
-6. Paste in the Application ID that you recorded when creating your Facebook
-   application.  Click Save.
-7. Navigate to the location in the site where you want to add the portlet.
-8. Click 'Manage portlets'.
-9. Click on the dropdown to add a portlet to the column where you want
+1. Navigate to the location in the site where you want to add the portlet.
+2. Click 'Manage portlets'.
+3. Click on the dropdown to add a portlet to the column where you want
    the feed form to appear, and select 'Facebook Feed Form'.
-10. Edit the settings as prompted.  When finished, click Save.
-11. Return to the location where you assigned the portlet to view the feed
-    form.
+4. Edit the settings as prompted.  When finished, click Save.
+5. Return to the location where you assigned the portlet to view the feed
+   form.
 
 If a visitor to a page with a feed form is not logged into Facebook, then the
 feed form will not appear automatically.  Instead, a message will be shown
