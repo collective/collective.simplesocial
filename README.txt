@@ -120,28 +120,20 @@ Prerequisites
 
 To use the Like Box portlet, you must complete the steps in the section on
 `Creating a Facebook Application`_. You also need a Facebook Page.
-Take note of the numeric ID of the Page (it appears in the URL when viewing
-the page in Facebook), and enter in when you create the portlet.
+Take note of the URL of the Page, and enter in when you create the portlet.
 
 Adding a Like Box
 -----------------
 
-1. Go to Site Setup.
-2. Click Add/Remove Products.
-3. Check 'Facebook Like Box portlet' and click Install.
-4. Return to Site Setup.
-5. Click `Facebook Settings`.
-6. Paste in the Application ID that you recorded when creating your Facebook
-   application.  Click Save.
-7. Navigate to the location in the site where you want to add the portlet.
-8. Click 'Manage portlets'.
-9. Click on the dropdown to add a portlet to the column where you want
+1. Navigate to the location in the site where you want to add the portlet.
+2. Click 'Manage portlets'.
+3. Click on the dropdown to add a portlet to the column where you want
    the like box to appear, and select 'Facebook Like Box'.
-10. Paste in the numeric ID of the Facebook Page you want to promote.
-11. You may configure whether or not an activity stream appears, the number of
-    fan connections to display, and the width of the like box.
-12. Click save and return to the location where you assigned the portlet to
-    view the like box.
+4. Paste in the URL of the Facebook Page you want to promote.
+5. You may configure whether or not an activity stream appears, the number of
+   fan connections to display, and the width of the like box.
+6. Click save and return to the location where you assigned the portlet to
+   view the Like box.
 
 
 Feed Form Portlet
