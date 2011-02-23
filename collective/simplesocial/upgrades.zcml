@@ -42,11 +42,11 @@
         
     <genericsetup:upgradeStep
         source="1.4"
-        destination="1.5"
-        title="Upgrade fbconnect from 1.4 to 1.5"
+        destination="1.5b1"
+        title="Upgrade fbconnect from 1.4 to 1.5b1"
         description=""
         profile="collective.simplesocial:fbconnect"
-        handler="collective.simplesocial.upgrades.fbconnect_14_to_15"
+        handler="collective.simplesocial.upgrades.fbconnect_14_to_15b1"
         />
 
 </configure>

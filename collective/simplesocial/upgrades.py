@@ -57,7 +57,7 @@ def fanpage_post_10_to_14(setup_tool):
     if '++resource++simplesocial.js' in jsregistry.getResourceIds():
         jsregistry.moveResourceAfter(new_id, '++resource++simplesocial.js')
         
-def fbconnect_14_to_15(setup_tool):
+def fbconnect_14_to_15b1(setup_tool):
     """
     Updates the installed profiles to reflect new configuration defaults.
     """
@@ -70,7 +70,7 @@ def fbconnect_14_to_15(setup_tool):
         fanpage_post_enable = True
         
     # Import new settings from the upgrade profile.
-    profile_id = 'profile-collective.simplesocial:fbconnect_14_15'
+    profile_id = 'profile-collective.simplesocial:fbconnect_14_15b1'
     setup_tool.runAllImportStepsFromProfile(profile_id)
 
     # Toggle settings based on what was installed before.
