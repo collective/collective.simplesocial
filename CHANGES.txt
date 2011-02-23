@@ -4,6 +4,9 @@ Changelog
 1.5b1 (2011-02-23)
 ------------------
 
+- Hid the portlet header for the Like box portlet.
+  [yomatters]
+
 - Added an adapter for looking up the image that gets sent to Facebook to make
   it more easily customizable.
   [yomatters]

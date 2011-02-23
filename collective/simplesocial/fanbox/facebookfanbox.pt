@@ -1,8 +1,8 @@
 <dl class="portlet portletFacebookFanBox"
     i18n:domain="collective.simplesocial">
-    <dt class="portletHeader">
+    <dt class="portletHeader hiddenStructure">
         <span class="portletTopLeft"></span>
-        <span class="hiddenStructure">Facebook Like Box</span>
+        <span>Facebook Like Box</span>
         <span class="portletTopRight"></span>
     </dt>
     <dd class="portletItem">
