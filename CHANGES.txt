@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.5b2 (unreleased)
+------------------
+
+- Use simplejson/json to resolve issues with JSON escaping.
+  [yomatters]
+
 1.5b1 (2011-02-23)
 ------------------
 

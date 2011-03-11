@@ -2,7 +2,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from collective.simplesocial.browser.interfaces import IFacebookSettingsForm
-from collective.simplesocial.utils import json_serialize
+from collective.simplesocial import json
 
 class FBInitViewlet(ViewletBase):
     index = ViewPageTemplateFile('fb_init.pt')
@@ -29,7 +29,7 @@ class FBInitViewlet(ViewletBase):
 
     def update(self):
         super(FBInitViewlet, self).update()
-        self.settings = json_serialize(self._getSettings())
+        self.settings = json.dumps(self._getSettings())
         
     def _getSettings(self):
         """

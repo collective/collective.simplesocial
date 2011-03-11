@@ -3,12 +3,13 @@
 This module contains the tool of collective.simplesocial
 """
 import os
+import sys
 from setuptools import setup, find_packages
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.5b1'
+version = '1.5b2'
 
 long_description = (
     read('README.txt')
@@ -18,6 +19,11 @@ long_description = (
     )
 
 tests_require=['zope.testing']
+
+if sys.version_info[0] == 2 and sys.version_info[1] < 6:
+    requires = ['simplejson']
+else:
+    requires = []
 
 setup(name='collective.simplesocial',
       version=version,
@@ -42,8 +48,7 @@ setup(name='collective.simplesocial',
       install_requires=['setuptools',
                         'collective.autopermission',
                         'plone.app.z3cform',
-                        # -*- Extra requirements: -*-
-                        ],
+                        ] + requires,
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
       test_suite = 'collective.simplesocial.tests.test_docs.test_suite',

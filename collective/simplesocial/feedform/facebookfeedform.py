@@ -12,7 +12,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from collective.simplesocial import simplesocialMessageFactory as _
 from collective.simplesocial.browser.interfaces import IFacebookImage
-from collective.simplesocial.utils import json_escape, json_serialize
+from collective.simplesocial import json
 
 class IFeedFormDataProvider(Interface):
     """
@@ -193,7 +193,7 @@ class Renderer(base.Renderer):
         """
         
         if self.data.action_title:
-            return json_escape('User %s' % self.data.action_title)
+            return json.dumps('User %s' % self.data.action_title)
         return 'Untitled feed form'
         
     @property
@@ -201,20 +201,20 @@ class Renderer(base.Renderer):
         result_dict = self.attachment_data.copy()
         if self.data.action_title:
             result_dict.update({'caption': '{*actor*} ' + self.data.action_title})
-        return json_serialize(result_dict)
+        return result_dict
 
     @property
     def action_links(self):
         if self.data.action_link_text and self.data.action_link_href:
             return [{
-                'text': json_escape(self.data.action_link_text),
-                'href': json_escape(self.data.action_link_href),
+                'text': self.data.action_link_text,
+                'href': self.data.action_link_href,
             }]
         return None
 
     @property
     def user_message_prompt(self):
-        return json_escape(self.data.user_message_prompt)
+        return self.data.user_message_prompt
 
     def ui_options(self):
         options = {
@@ -225,7 +225,7 @@ class Renderer(base.Renderer):
         action_links = self.action_links
         if action_links:
             options['action_links'] = action_links
-        return json_serialize(options)
+        return json.dumps(options)
 
 class AddForm(base.AddForm):
     """Portlet add form.

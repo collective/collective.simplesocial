@@ -1,10 +1,9 @@
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from collective.simplesocial.feedform.facebookfeedform import IFeedFormDataProvider
-from collective.simplesocial.utils import json_serialize
+from collective.simplesocial import json
 
 class FanPagePostView(BrowserView):
     
     def attachment(self):
         data_provider = IFeedFormDataProvider(self.context)
-        return json_serialize(data_provider.getAttachment())
+        return json.dumps(data_provider.getAttachment())
