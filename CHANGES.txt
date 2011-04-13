@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5b2 (unreleased)
+1.5b2 (2011-04-13)
 ------------------
 
 - Fixed an issue with the Like button that prevented content from being
