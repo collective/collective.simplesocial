@@ -4,6 +4,10 @@ Changelog
 1.5b2 (unreleased)
 ------------------
 
+- Fixed an issue with the Like button that prevented content from being
+  copied and pasted.
+  [yomatters]
+
 - Use simplejson/json to resolve issues with JSON escaping.
   [yomatters]
 
