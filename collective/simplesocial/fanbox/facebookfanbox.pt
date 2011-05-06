@@ -11,8 +11,8 @@
             tal:attributes="href view/data/href;
                 width view/data/width;
                 height python:view.data.height or '';
-                connections view/data/connections;
                 colorscheme view/data/colorscheme;
+                show_faces python:str(view.data.show_faces).lower();
                 stream python:str(view.data.show_stream).lower();
                 header python:str(view.data.show_header).lower();">
         </fb:like-box>

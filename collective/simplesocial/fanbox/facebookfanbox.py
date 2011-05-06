@@ -49,12 +49,10 @@ class IFacebookFanBox(IPortletDataProvider):
         default = u'light',
     )
         
-    connections = schema.Int(
-        title = _(u'Connections'),
-        description = _(u'Show this many faces of users who have liked this page.'),
-        min = 0,
-        max = 100,
-        default = 10,
+    show_faces = schema.Bool(
+        title = _(u'Display faces'),
+        description = _(u'Displays profile pictures of users who like the page.'),
+        default = True,
         )
         
     show_stream = schema.Bool(
@@ -81,18 +79,18 @@ class Assignment(base.Assignment):
     href = u''
     width = 200
     height = None
-    connections = 10
     colorscheme = u'light'
+    show_faces = True
     show_stream = True
     show_header = True
 
-    def __init__(self, href=u'', width=200, height=None, connections=10, \
-        colorscheme=u'light', show_stream=True, show_header=True):
+    def __init__(self, href=u'', width=200, height=None, colorscheme=u'light',
+        show_faces=True, show_stream=True, show_header=True):
         self.href = href
         self.width = width
         self.height = height
-        self.connections = connections
         self.colorscheme = colorscheme
+        self.show_faces = show_faces
         self.show_stream = show_stream
         self.show_header = show_header
 

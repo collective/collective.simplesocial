@@ -4,7 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-
+- Added the ability to toggle on and off the display of profile pictures in the
+  Like box.
+  [yomatters]
 
 1.5b2 (2011-04-13)
 ------------------
