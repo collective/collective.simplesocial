@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (unreleased)
+1.5 (2011-05-06)
 ----------------
 
 - Updated instructions for creating a Facebook app.
