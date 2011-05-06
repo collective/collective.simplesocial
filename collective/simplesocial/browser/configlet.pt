@@ -28,14 +28,39 @@
         <p>To use Facebook features, you must configure a Facebook application.</p>
 
         <ul>
-            <li>Go to the <a href="http://www.facebook.com/developers/">Facebook 
-                Developer application</a>. If necessary, allow it access to your profile.</li>
-            <li>Click the <strong>Set Up New Application</strong> button and fill out the form.</li>
-            <li>Note the <strong>application ID</strong> of your new application.</li>
-            <li>In the Facebook application's settings, click on the <strong>Connect</strong> tab.
-                Enter the URL of this site into the <strong>Connect URL</strong> field.</li>
-            <li>Return to this control panel and enter the application ID. Then, if prompted, 
-                log into Facebook to complete the configuration.</li>
+            <li>
+                Go to the <a href="http://www.facebook.com/developers/">Facebook 
+                Developer application</a>. If necessary, allow it access to
+                your profile.
+            </li>
+            <li>
+                Click the <strong>Set Up New App</strong> button,
+                and enter these settings:
+                <blockquote>
+                    <strong>App Name:</strong>
+                    <span tal:content="context/Title">Site Name</span>
+                </blockquote>
+            </li>
+            <li>Read and agree to the terms of service, and create your app.</li>
+            <li>
+                In the Facebook application's settings, click on the
+                <strong>Web Site</strong> tab. Note the <strong>application
+                ID</strong>, and enter these settings:
+                <blockquote>
+                    <strong>Site URL:</strong>
+                    <span tal:content="context/@@plone_portal_state/portal_url|default">
+                        The URL of this site
+                    </span><br />
+                    <strong>Site Domain:</strong>
+                    <span tal:content="request/HTTP_HOST|default">
+                        The domain name of this site without http:// or trailing slash
+                    </span>
+                </blockquote>
+            </li>
+            <li>Save your changes. Then return to this control panel and
+                enter the application ID. If prompted, log into Facebook to
+                complete the configuration.
+            </li>
         </ul>
     </div>
 

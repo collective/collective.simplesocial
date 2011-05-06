@@ -4,6 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
+- Updated instructions for creating a Facebook app.
+  [yomatters]
+
 - Added the ability to toggle on and off the display of profile pictures in the
   Like box.
   [yomatters]
