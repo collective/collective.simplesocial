@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6 unreleased
+--------------
+
+- Added a like and unlike tracking plugin for collective.googleanalytics.
+  [yomatters]
+
 1.5 (2011-05-06)
 ----------------
 

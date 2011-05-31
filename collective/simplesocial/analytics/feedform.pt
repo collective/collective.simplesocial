@@ -1,8 +1,10 @@
 <script type="text/javascript" tal:content="structure string:
+    /*&lt;![CDATA[*/
     SimpleSocial.callbacks.feedForm = function (response) {
         if (response != 'null') {
             _gaq.push(['_trackEvent', 'Facebook', SimpleSocial.settings.feedform_title]);                 
         }
     };
+    /*]]&gt;*/
 ">
 </script>
