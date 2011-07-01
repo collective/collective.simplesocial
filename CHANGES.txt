@@ -1,6 +1,12 @@
 Changelog
 =========
 
+trunk (unreleased)
+------------------
+
+- Moved javascript generation from fb_init.pt to view to fix Chameleon warning
+  [swampmonkey]
+
 1.6 (2011-05-31)
 ----------------
 

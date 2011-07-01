@@ -4,10 +4,31 @@ from plone.app.layout.viewlets.common import ViewletBase
 from collective.simplesocial.browser.interfaces import IFacebookSettingsForm
 from collective.simplesocial import json
 
+JAVASCRIPT = """
+  SimpleSocial.addSettings(%(settings)s);
+  window.fbAsyncInit = function() {
+    if (navigator.appVersion.indexOf('MSIE') != -1) {
+        version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+        if (version <= 6) return;
+    }
+    SimpleSocial.connect(function(response) {
+        if (response.connected) {
+            SimpleSocial.processQueue();
+        }
+    });
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+"""
+
 class FBInitViewlet(ViewletBase):
     index = ViewPageTemplateFile('fb_init.pt')
     init_options = ''
-    
+
     def available(self):
         """
         Check to see whether we should perform the normal initialization
@@ -29,7 +50,8 @@ class FBInitViewlet(ViewletBase):
 
     def update(self):
         super(FBInitViewlet, self).update()
-        self.settings = json.dumps(self._getSettings())
+        self.jscript = JAVASCRIPT % dict(
+                settings=json.dumps(self._getSettings()))
         
     def _getSettings(self):
         """
