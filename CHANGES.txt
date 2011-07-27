@@ -4,6 +4,9 @@ Changelog
 1.7 (unreleased)
 ----------------
 
+- Resolved Chameleon error by properly escaping init javascript.
+  [yomatters]
+
 - Track likes and unlikes in Google Analytics using social media tracking.
   [yomatters]
 
