@@ -1,8 +1,11 @@
 Changelog
 =========
 
-trunk (unreleased)
-------------------
+1.7 (unreleased)
+----------------
+
+- Track likes and unlikes in Google Analytics using social media tracking.
+  [yomatters]
 
 - Moved javascript generation from fb_init.pt to view to fix Chameleon warning
   [swampmonkey]
