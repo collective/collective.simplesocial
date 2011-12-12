@@ -25,7 +25,7 @@ var SimpleSocial = {
             var simplesocial = this;
             FB.Data.waitOn([apps], function(args) {
                 if (apps.value.length) {
-                    FB.init({appId: app_id, status: true, cookie: true, xfbml: true});
+                    FB.init({appId: app_id, status: true, cookie: true, xfbml: true, oauth: true});
                     simplesocial.connected = true;
                     callback({'connected': true, 'display_name': apps.value[0].display_name});
                 } else {

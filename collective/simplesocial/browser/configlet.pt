@@ -70,9 +70,9 @@
         
     <script type="text/javascript">    
     (function ($) {
-        function simplesocial_setupChoices(session) {
+        function simplesocial_setupChoices(userId) {
             var query_template = 'SELECT page_id, name from page where page_id in (SELECT page_id from page_admin where uid={0})';
-            var pages = FB.Data.query(query_template, session.uid);
+            var pages = FB.Data.query(query_template, userId);
             var el = document.getElementById('form-widgets-page_id');
             SimpleSocial.populateChoices(el, pages);
         }
@@ -121,42 +121,42 @@
                 login_block.append(login_button, login_instructions).css('margin-top', '10px');
                 jq('#formfield-form-widgets-app_id').after(login_block);
                 
-                function simplesocial_updateLoginStatus(session) {
-                    if (session) {
+                function simplesocial_updateLoginStatus(status, authResponse) {
+                    if (status === 'connected') {
                         // The user logged in.
                         fields.show();
-                        simplesocial_setupChoices(session);
+                        simplesocial_setupChoices(authResponse.userID);
                         login_button.text('Logout of Facebook');
                         login_instructions.text('');
-                        login_button.click(simplesocial_logout);
+                        login_button.unbind('click').click(simplesocial_logout);
                     } else {
                         // The user logged out.
                         simplesocial_unsetupChoices();
                         login_button.text('Login to Facebook');
                         login_instructions.text(' to continue configuring SimpleSocial.');
-                        login_button.click(simplesocial_login);
+                        login_button.unbind('click').click(simplesocial_login);
                     }
                 }
 
                 function simplesocial_login() {
                     FB.login(function (response) {
-                        simplesocial_updateLoginStatus(response.session);
+                        simplesocial_updateLoginStatus(response.status, response.authResponse);
                     });
                     return false;
                 }
 
                 function simplesocial_logout() {
                     FB.logout(function(response) {
-                        simplesocial_updateLoginStatus(false);
+                        simplesocial_updateLoginStatus(response.status, response.authResponse);
                     });
                     return false;
                 }
 
-                simplesocial_updateLoginStatus(false);
+                simplesocial_updateLoginStatus();
                 
                 // Check to see if the user is already logged in.
                 FB.getLoginStatus(function (response) {
-                   simplesocial_updateLoginStatus(response.session);
+                   simplesocial_updateLoginStatus(response.status, response.authResponse);
                 });
             }
             

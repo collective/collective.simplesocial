@@ -16,7 +16,7 @@ var simplesocial_streamPublish = function () {
 };
 SimpleSocial.queue.push(function () {
     FB.getLoginStatus(function(response) {
-      if (response.session) {
+      if (response.status === 'connected') {
           simplesocial_streamPublish();
       } else {
           jq(function() {

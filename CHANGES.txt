@@ -4,6 +4,9 @@ Changelog
 1.7 (unreleased)
 ----------------
 
+- Use OAuth 2.0 for authentication.
+  [yomatters]
+
 - Resolved Chameleon error by properly escaping init javascript.
   [yomatters]
 
