@@ -52,10 +52,10 @@ class ToggleLikeButton(BrowserView):
     """
     Browser view to turn the Like button on or off for this content object.
     """
-    
-    def __init__(self, context, request):
-        super(ToggleLikeButton, self).__init__(context, request)
-        self.portal = context.restrictedTraverse('plone_portal_state').portal()
+        
+    def _get_settings(self):
+        portal = self.context.restrictedTraverse('@@plone_portal_state').portal()
+        return IFacebookSettings(portal)
     
     def can_enable(self):
         """
@@ -63,7 +63,7 @@ class ToggleLikeButton(BrowserView):
         for this type.
         """
         
-        settings = IFacebookSettings(self.portal)
+        settings = self._get_settings()
         return likebutton_available(settings) and not \
             likebutton_enabled(self.context, settings)
         
@@ -73,7 +73,7 @@ class ToggleLikeButton(BrowserView):
         for this type.
         """
         
-        settings = IFacebookSettings(self.portal)
+        settings = self._get_settings()
         return likebutton_available(settings) and \
             likebutton_enabled(self.context, settings)
     
@@ -81,7 +81,7 @@ class ToggleLikeButton(BrowserView):
         
         # Decide whether we are enabling or disabling based on the request.
         enable = self.request.get('enable', False)
-        settings = IFacebookSettings(self.portal)
+        settings = self._get_settings()
 
         if enable:
             if ILikeButtonDisabled.providedBy(self.context):

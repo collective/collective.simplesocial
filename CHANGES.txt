@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.8 (unreleased)
+----------------
+
+- Fixed a permission error when enabling and disabling the Like button.
+  [yomatters]
+
 1.7 (2011-12-12)
 ----------------
 
