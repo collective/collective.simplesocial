@@ -41,6 +41,15 @@
       permission="zope2.View"
       layer=".interfaces.IBrowserLayer"
       />
+      
+  <!-- Channel file for cross-domain communication. -->
+  <browser:page
+      name="facebook-channel"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      template="channel.pt"
+      permission="zope2.View"
+      layer=".interfaces.IBrowserLayer"
+      />
 
   <!-- adapter for storing settings in a property sheet -->
   <adapter

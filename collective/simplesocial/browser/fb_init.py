@@ -40,5 +40,10 @@ class FBInitViewlet(ViewletBase):
         pprops = getToolByName(self.context, 'portal_properties')
         fb_properties = pprops.get('fb_properties', None)
         items = fb_properties.propertyItems()
-        return dict([prop for prop in items \
+        settings = dict([prop for prop in items \
             if not prop[0] == 'title' and not prop[1] == ''])
+        
+        # Add the channel URL.
+        settings['channel_url'] = self.site_url + '/@@facebook-channel'    
+        
+        return settings

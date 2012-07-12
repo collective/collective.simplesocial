@@ -4,6 +4,9 @@ Changelog
 1.8 (unreleased)
 ----------------
 
+- Added channel file and updated SDK initialization.
+  [yomatters]
+
 - Fixed a permission error when enabling and disabling the Like button.
   [yomatters]
 

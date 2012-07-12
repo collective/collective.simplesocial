@@ -1,0 +1,6 @@
+<metal:block tal:define="cache_age python:60*60*24*365;
+        cache_expires python:modules['DateTime'].DateTime() + 365;
+        pragma python:request.RESPONSE.setHeader('Pragma', 'public');
+        cache_control python:request.RESPONSE.setHeader('Cache-Control', 'max-age=' + str(cache_age));
+        expires python:request.RESPONSE.setHeader('Expires', cache_expires.toZone('GMT').rfc822());" />
+<script src="//connect.facebook.net/en_US/all.js"></script>

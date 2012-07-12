@@ -17,15 +17,16 @@ var SimpleSocial = {
     connect: function (callback) {
         // connect attempts to initialize a connection to Facebook.
         // settings.api_key must be set before this method is called.
-        var app_id = parseInt(this.settings.app_id);
-        var callback = this.getCallback(callback);
+        var app_id = parseInt(this.settings.app_id),
+          channel_url = this.settings.channel_url,
+          callback = this.getCallback(callback);
         if (!isNaN(app_id)) {
             var query_template = 'SELECT display_name FROM application WHERE app_id={0}';
             var apps = FB.Data.query(query_template, app_id);
             var simplesocial = this;
             FB.Data.waitOn([apps], function(args) {
                 if (apps.value.length) {
-                    FB.init({appId: app_id, status: true, cookie: true, xfbml: true, oauth: true});
+                    FB.init({appId: app_id, channelUrl: channel_url, status: true, cookie: true, xfbml: true});
                     simplesocial.connected = true;
                     callback({'connected': true, 'display_name': apps.value[0].display_name});
                 } else {
