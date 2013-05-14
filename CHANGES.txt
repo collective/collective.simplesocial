@@ -4,6 +4,9 @@ Changelog
 1.8 (unreleased)
 ----------------
 
+- Plone4.3 changes
+  [sureshvv]
+
 - Added channel file and updated SDK initialization.
   [yomatters]
 
