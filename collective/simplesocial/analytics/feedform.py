@@ -1,5 +1,5 @@
 from collective.googleanalytics.tracking import AnalyticsBaseTrackingPlugin
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class FeedFormTracking(AnalyticsBaseTrackingPlugin):
     """

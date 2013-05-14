@@ -1,4 +1,4 @@
-from zope.app.component.hooks import getSite
+from zope.site.hooks import getSite
 from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage

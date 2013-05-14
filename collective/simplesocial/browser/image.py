@@ -1,5 +1,5 @@
 from zope.interface import implements
-from zope.app.component.hooks import getSite
+from zope.site.hooks import getSite
 from collective.simplesocial.browser.interfaces import IFacebookImage
 
 class DefaultFacebookImage(object):

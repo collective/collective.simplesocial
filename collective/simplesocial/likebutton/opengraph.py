@@ -1,4 +1,4 @@
-from zope.app.component.hooks import getSite
+from zope.site.hooks import getSite
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile

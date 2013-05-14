@@ -1,4 +1,4 @@
-from zope.app.component.hooks import getSite
+from zope.site.hooks import getSite
 from zope.interface import alsoProvides, noLongerProvides
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
