@@ -4,6 +4,9 @@ Changelog
 1.8 (unreleased)
 ----------------
 
+- Use new prefered location for getSite
+  [encolpe]
+
 - Plone4.3 changes
   [sureshvv]
 

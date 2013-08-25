@@ -1,4 +1,8 @@
-from zope.site.hooks import getSite
+# -*- encoding: utf-8 -*-
+try:
+    from zope.component.hooks import getSite
+except ImportError:
+    from zope.site.hooks import getSite
 from zope.interface import alsoProvides, noLongerProvides
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile

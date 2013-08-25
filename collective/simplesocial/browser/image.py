@@ -1,5 +1,9 @@
+# -*- encoding: utf-8 -*-
 from zope.interface import implements
-from zope.site.hooks import getSite
+try:
+    from zope.component.hooks import getSite
+except ImportError:
+    from zope.site.hooks import getSite
 from collective.simplesocial.browser.interfaces import IFacebookImage
 
 class DefaultFacebookImage(object):
