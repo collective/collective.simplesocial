@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8 (unreleased)
+1.8 (2013-11-12)
 ----------------
 
 - Use new prefered location for getSite
